@@ -1,0 +1,539 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Пульт Bernelli на Ozon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:light}
+body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}
+img{max-width:100%}
+:root{
+  --paper:#F6F7FC; --surface:#FFFFFF; --surface-2:#EFF1F8; --line:#DEE0EE; --line-soft:#EAECF5;
+  --ink:#171A2E; --ink-2:#4E5372; --ink-3:#7C81A0;
+  --sales:#3557D8; --sales-soft:rgba(53,87,216,.13); --sales-soft-2:rgba(53,87,216,.03);
+  --ads:#0C8F7E; --ads-soft:rgba(12,143,126,.14);
+  --good:#12855F; --good-bg:rgba(18,133,95,.10);
+  --warn:#B4690E; --warn-bg:rgba(180,105,14,.11);
+  --bad:#C42B2B;  --bad-bg:rgba(196,43,43,.10);
+  --sample:#7A4BC4; --sample-bg:rgba(122,75,196,.11);
+  --shadow:0 1px 2px rgba(23,26,46,.05), 0 8px 24px -16px rgba(23,26,46,.22);
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1122; --surface:#171A2C; --surface-2:#1E2138; --line:#2C3050; --line-soft:#242844;
+    --ink:#EDEEF6; --ink-2:#A9AECB; --ink-3:#767C9C;
+    --sales:#7286E4; --sales-soft:rgba(114,134,228,.20); --sales-soft-2:rgba(114,134,228,.04);
+    --ads:#25A891; --ads-soft:rgba(37,168,145,.20);
+    --good:#35B78A; --good-bg:rgba(53,183,138,.14);
+    --warn:#DFA046; --warn-bg:rgba(223,160,70,.14);
+    --bad:#EF7A78;  --bad-bg:rgba(239,122,120,.14);
+    --sample:#B694F0; --sample-bg:rgba(182,148,240,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -16px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1122; --surface:#171A2C; --surface-2:#1E2138; --line:#2C3050; --line-soft:#242844;
+  --ink:#EDEEF6; --ink-2:#A9AECB; --ink-3:#767C9C;
+  --sales:#7286E4; --sales-soft:rgba(114,134,228,.20); --sales-soft-2:rgba(114,134,228,.04);
+  --ads:#25A891; --ads-soft:rgba(37,168,145,.20);
+  --good:#35B78A; --good-bg:rgba(53,183,138,.14);
+  --warn:#DFA046; --warn-bg:rgba(223,160,70,.14);
+  --bad:#EF7A78;  --bad-bg:rgba(239,122,120,.14);
+  --sample:#B694F0; --sample-bg:rgba(182,148,240,.15);
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -16px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  font-size:14px; line-height:1.5; margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1160px; margin:0 auto; padding:28px 20px 64px; display:flex; flex-direction:column; gap:26px}
+
+/* ---------- header ---------- */
+header{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:18px 28px}
+.brandline{display:flex; flex-direction:column; gap:6px; min-width:280px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3)}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:31px; line-height:1.15; margin:0; text-wrap:balance; letter-spacing:-.01em}
+.sub{color:var(--ink-2); font-size:13.5px; max-width:60ch}
+.stamp{display:flex; flex-direction:column; gap:5px; align-items:flex-start; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3)}
+.stamp b{color:var(--ink-2); font-weight:500}
+.live{display:inline-flex; align-items:center; gap:7px; color:var(--ink-2)}
+.dot{width:7px; height:7px; border-radius:50%; background:var(--good); box-shadow:0 0 0 3px var(--good-bg)}
+
+/* ---------- kpi strip ---------- */
+.kpis{display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--line);
+      border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
+.kpi{background:var(--surface); padding:14px 16px 15px; display:flex; flex-direction:column; gap:3px; min-width:0}
+.kpi .k{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kpi .v{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:21px; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.25}
+.kpi .n{font-size:11.5px; color:var(--ink-3)}
+.kpi.accent-sales .v{color:var(--sales)}
+.kpi.accent-ads .v{color:var(--ads)}
+
+/* ---------- panels ---------- */
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow)}
+.phead{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 20px; padding:16px 18px 12px}
+.phead h2{font-family:"IBM Plex Serif",Georgia,serif; font-size:17px; font-weight:600; margin:0; letter-spacing:-.005em}
+.phead .meta{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3)}
+.pbody{padding:0 18px 18px}
+.section-rule{display:flex; align-items:center; gap:12px; margin-top:6px}
+.section-rule .num{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); letter-spacing:.1em}
+.section-rule .ln{flex:1; height:1px; background:var(--line)}
+
+/* legend + chart */
+.legend{display:flex; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--ink-2); align-items:center}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.swatch{width:11px; height:11px; border-radius:3px; flex:none}
+.swatch.line{height:3px; width:15px; border-radius:2px}
+.swatch.dash{height:0; width:15px; border-top:2px dashed var(--sample)}
+.chartbox{position:relative; margin-top:10px}
+svg{display:block; width:100%; height:auto; overflow:visible}
+.tick{font-family:"IBM Plex Mono",monospace; font-size:10.5px; fill:var(--ink-3)}
+.gridline{stroke:var(--line-soft); stroke-width:1}
+.axis{stroke:var(--line); stroke-width:1}
+
+.tip{position:absolute; pointer-events:none; opacity:0; transition:opacity .12s;
+     background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:9px 11px;
+     box-shadow:var(--shadow); font-size:12px; min-width:150px; z-index:5}
+.tip .td{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-bottom:5px; letter-spacing:.04em}
+.tip .tr{display:flex; justify-content:space-between; gap:16px; font-variant-numeric:tabular-nums}
+.tip .tr b{font-family:"IBM Plex Mono",monospace; font-weight:600}
+
+/* funnel */
+.funnel{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line);
+        border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-top:16px}
+.fst{background:var(--surface-2); padding:11px 13px; display:flex; flex-direction:column; gap:2px}
+.fst .fk{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3)}
+.fst .fv{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:600; font-variant-numeric:tabular-nums}
+.fst .fr{font-size:11px; color:var(--ink-3)}
+
+/* tables */
+.tablewrap{overflow-x:auto; margin-top:14px; border:1px solid var(--line); border-radius:8px}
+table{border-collapse:collapse; width:100%; min-width:560px; font-size:13px}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+   color:var(--ink-3); text-align:right; font-weight:500; padding:9px 12px; background:var(--surface-2);
+   border-bottom:1px solid var(--line); white-space:nowrap}
+th:first-child, td:first-child{text-align:left}
+td{padding:9px 12px; border-bottom:1px solid var(--line-soft); text-align:right;
+   font-variant-numeric:tabular-nums; font-family:"IBM Plex Mono",monospace; font-size:12.5px; white-space:nowrap}
+td.name{font-family:"IBM Plex Sans",sans-serif; font-size:13px; white-space:normal; min-width:210px; color:var(--ink)}
+td .sku{display:block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--surface-2)}
+.bar-cell{position:relative}
+.bar-cell .fill{position:absolute; left:0; top:4px; bottom:4px; background:var(--sales-soft);
+  border-right:2px solid var(--sales); border-radius:0 2px 2px 0}
+.bar-cell span{position:relative}
+
+.chip{display:inline-block; padding:1px 7px; border-radius:999px; font-family:"IBM Plex Mono",monospace;
+      font-size:11px; font-weight:600; letter-spacing:.01em}
+.chip.good{color:var(--good); background:var(--good-bg)}
+.chip.warn{color:var(--warn); background:var(--warn-bg)}
+.chip.bad{color:var(--bad); background:var(--bad-bg)}
+.chip.mute{color:var(--ink-3); background:var(--surface-2)}
+
+/* notes / diagnostics */
+.notes{display:flex; flex-direction:column}
+.note{display:grid; grid-template-columns:auto 1fr; gap:0 14px; padding:13px 0; border-bottom:1px solid var(--line-soft); align-items:start}
+.note:last-child{border-bottom:none; padding-bottom:0}
+.note .sev{width:3px; align-self:stretch; border-radius:2px; min-height:34px}
+.note .sev.warn{background:var(--warn)} .note .sev.bad{background:var(--bad)} .note .sev.info{background:var(--ink-3)}
+.note h3{margin:0 0 3px; font-size:13.5px; font-weight:600; font-family:"IBM Plex Sans",sans-serif}
+.note p{margin:0; color:var(--ink-2); font-size:13px; max-width:78ch}
+.note code{font-family:"IBM Plex Mono",monospace; font-size:12px; background:var(--surface-2); padding:1px 5px; border-radius:4px}
+
+.sample-tag{display:inline-flex; align-items:center; gap:5px; font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--sample); background:var(--sample-bg); padding:2px 7px; border-radius:5px}
+
+.srcs{display:flex; flex-wrap:wrap; gap:8px 18px; font-size:12.5px; color:var(--ink-3);
+      border-top:1px solid var(--line); padding-top:16px}
+.srcs a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--line)}
+.srcs a:hover{color:var(--sales); border-color:var(--sales)}
+a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outline-offset:2px; border-radius:3px}
+
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .funnel{grid-template-columns:repeat(2,1fr)}
+  h1{font-size:26px}
+}
+@media (max-width:520px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .funnel{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brandline">
+      <div class="eyebrow">Ozon · кабинет продавца · агентский пульт</div>
+      <h1>Пульт Bernelli на Ozon</h1>
+      <div class="sub">Два счётчика, за которыми смотрим ежедневно: сколько денег приносит витрина и сколько стоит реклама, которая их приводит.</div>
+    </div>
+    <div class="stamp">
+      <span class="live"><span class="dot"></span> Обновлено <b>13.09.2026, 11:44</b></span>
+      <span>Источник: Google Диск → <b>ozonbot</b>, <b>AleksaForOzon</b></span>
+      <span>Следующее обновление: <b>каждый день в 08:20</b></span>
+    </div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi accent-sales"><div class="k">Выручка, 30 дн.</div><div class="v">2 150 399 ₽</div><div class="n">11.08 – 09.09</div></div>
+    <div class="kpi"><div class="k">Продано</div><div class="v">359 шт</div><div class="n">12,4 шт в день</div></div>
+    <div class="kpi accent-ads"><div class="k">Расход на рекламу</div><div class="v">3 338 ₽</div><div class="n">кампании с 02.09</div></div>
+    <div class="kpi"><div class="k">ДРР</div><div class="v">0,16 %</div><div class="n">доля рекламы в выручке</div></div>
+    <div class="kpi"><div class="k">CTR</div><div class="v">5,61 %</div><div class="n">клик из показа</div></div>
+    <div class="kpi"><div class="k">CPC</div><div class="v">3,15 ₽</div><div class="n">цена клика</div></div>
+  </div>
+
+  <!-- ============ БЛОК 1 — ПРОДАЖИ ============ -->
+  <section class="panel">
+    <div class="phead">
+      <h2>Выручка по дням</h2>
+      <div class="meta">29 дней · 11.08 – 08.09.2026</div>
+    </div>
+    <div class="pbody">
+      <div class="legend">
+        <span><i class="swatch line" style="background:var(--sales)"></i> Выручка за день</span>
+        <span><i class="swatch dash"></i> План 60 000 ₽/день <span class="sample-tag">пример</span></span>
+        <span id="wow"></span>
+      </div>
+      <div class="chartbox">
+        <svg id="salesChart" viewBox="0 0 1000 300" role="img" aria-label="Выручка по дням, 11 августа – 08 сентября 2026"></svg>
+        <div class="tip" id="salesTip"></div>
+      </div>
+
+      <div class="section-rule" style="margin-top:22px"><span class="num">ТОП ТОВАРОВ</span><span class="ln"></span></div>
+      <div class="tablewrap">
+        <table id="topTable">
+          <thead><tr><th>Товар</th><th>Продано</th><th>Выручка</th><th>Реклама</th><th>ДРР</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ БЛОК 2 — РЕКЛАМА ============ -->
+  <section class="panel">
+    <div class="phead">
+      <h2>Реклама: расход и воронка</h2>
+      <div class="meta">кампании запущены 02.09 · последний полный день 08.09</div>
+    </div>
+    <div class="pbody">
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--ads)"></i> Расход за день</span>
+        <span style="color:var(--ink-3)">09.09 бот ещё не выгрузил статистику</span>
+      </div>
+      <div class="chartbox">
+        <svg id="adChart" viewBox="0 0 1000 220" role="img" aria-label="Расход на рекламу по дням, 3–8 сентября 2026"></svg>
+        <div class="tip" id="adTip"></div>
+      </div>
+
+      <div class="funnel">
+        <div class="fst"><div class="fk">Показы</div><div class="fv">23 278</div><div class="fr">03–08.09</div></div>
+        <div class="fst"><div class="fk">Клики</div><div class="fv">1 262</div><div class="fr">CTR 5,4 %</div></div>
+        <div class="fst"><div class="fk">Корзины</div><div class="fv">73</div><div class="fr">5,8 % от кликов</div></div>
+        <div class="fst"><div class="fk">Заказы</div><div class="fv">8</div><div class="fr">11,0 % от корзин</div></div>
+        <div class="fst"><div class="fk">Расход на заказ</div><div class="fv">560 ₽</div><div class="fr">4 480 ₽ / 8 заказов</div></div>
+      </div>
+
+      <div class="section-rule" style="margin-top:22px"><span class="num">КАМПАНИИ ЗА 30 ДНЕЙ</span><span class="ln"></span></div>
+      <div class="tablewrap">
+        <table id="campTable">
+          <thead><tr><th>Кампания</th><th>Расход</th><th>Выручка</th><th>Заказы</th><th>ДРР</th><th>CTR</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ДИАГНОСТИКА ============ -->
+  <section class="panel">
+    <div class="phead">
+      <h2>Что мешает пульту</h2>
+      <div class="meta">нашлось при разборе таблиц</div>
+    </div>
+    <div class="pbody">
+      <div class="notes">
+        <div class="note"><div class="sev bad"></div><div>
+          <h3>Остатки не выгружаются</h3>
+          <p>В листе остатков 354 SKU, и у всех <code>Остаток = 0</code>. Пока колонка пустая, нельзя считать ни дни до OOS, ни риск слить рекламу на товар, которого нет на складе.</p>
+        </div></div>
+        <div class="note"><div class="sev warn"></div><div>
+          <h3>Себестоимость пустая — маржи нет</h3>
+          <p>Колонка <code>Себестоимость</code> не заполнена ни по одному товару, поэтому пульт показывает выручку, а не прибыль. С себестоимостью тут же появятся маржа, ROI рекламы и точка безубыточности по каждому SKU.</p>
+        </div></div>
+        <div class="note"><div class="sev warn"></div><div>
+          <h3>Колонка «ДРР от заказа» — это не ДРР</h3>
+          <p>В таблице <b>AleksaForOzon</b> значение равно расходу, делённому на количество заказов (03.09, артикул 160/77_43: 85,65 ₽ ÷ 2 = 42,83). Это расход на заказ, а не доля рекламы в выручке. На пульте показан именно расход на заказ.</p>
+        </div></div>
+        <div class="note"><div class="sev info"></div><div>
+          <h3>Разрыв в датах</h3>
+          <p>Разбивка продаж по SKU в <b>ozonbot</b> заканчивается 08.09, хотя сводка периода в шапке той же таблицы уже включает 09.09 (2 150 399 ₽ и 359 шт против 1 995 979 ₽ и 338 шт по дневному ряду) — то есть Ozon досчитывает сводный итог быстрее, чем детальную разбивку по товарам. Рекламные строки в <b>AleksaForOzon</b> обрываются на 09.09 без итоговой строки за день. Пульт показывает график только по дням с подтверждённым дневным итогом, а не досчитывает их сам.</p>
+        </div></div>
+      </div>
+
+      <div class="srcs">
+        <span>Источники:</span>
+        <a href="https://docs.google.com/spreadsheets/d/1TdWwQb7vAOH1EMAwIk3svRP1jP_z6rzWFAS6KmjlpyI/edit" target="_blank" rel="noopener">ozonbot — Ozon Analytics</a>
+        <a href="https://docs.google.com/spreadsheets/d/1er_1t8Qb1JfYY9wtSG29FuEbQr8lv2pRxpIbkoNic3k/edit" target="_blank" rel="noopener">AleksaForOzon — реклама по дням</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+const NBSP = " ";
+const fmt = (n, d=0) => n.toLocaleString("ru-RU", {minimumFractionDigits:d, maximumFractionDigits:d});
+const rub = n => fmt(Math.round(n)) + NBSP + "₽";
+
+/* ---- данные: ozonbot, лист «продажи по дням» (11.08–08.09.2026) ---- */
+const SALES = [["11.08",17,116128],["12.08",0,0],["13.08",0,0],["14.08",4,21081],["15.08",7,42948],
+["16.08",5,24519],["17.08",7,34955],["18.08",7,37045],["19.08",17,103911],["20.08",9,49889],
+["21.08",10,76532],["22.08",4,28498],["23.08",8,61378],["24.08",5,33400],["25.08",16,50356],
+["26.08",33,112042],["27.08",36,164230],["28.08",14,79034],["29.08",11,65360],["30.08",15,130320],
+["31.08",9,45360],["01.09",10,48880],["02.09",21,169080],["03.09",12,106640],["04.09",7,52880],
+["05.09",12,87080],["06.09",3,30420],["07.09",12,70660],["08.09",27,153353]];
+
+/* ПРИМЕР — целевой дневной план, реальной цифры в таблицах нет */
+const PLAN_DAY = 60000;
+
+/* ---- данные: AleksaForOzon, дневные итоги (строка «Итого за ДД.ММ.ГГГГ» из таблицы) ---- */
+/* 09.09: строки по SKU уже есть, но строка «Итого за день» бот ещё не досчитал — не показываем как факт */
+const ADS = [
+  {d:"03.09", spend:969.73, imp:5209, clicks:288, carts:17, orders:3, ok:true},
+  {d:"04.09", spend:619.52, imp:3723, clicks:145, carts:5,  orders:1, ok:true},
+  {d:"05.09", spend:772.10, imp:3849, clicks:217, carts:16, orders:1, ok:true},
+  {d:"06.09", spend:0,      imp:0,    clicks:0,   carts:0,  orders:0, ok:true},
+  {d:"07.09", spend:0,      imp:0,    clicks:0,   carts:0,  orders:3, ok:true},
+  {d:"08.09", spend:2118.48,imp:10497,clicks:612, carts:35, orders:0, ok:true}
+];
+
+/* ---- данные: ozonbot, «По товарам — период 30 дней» ---- */
+const TOP = [
+  ["Костюм спортивный оверсайз без начеса","5419385311",16,154460,948.16,0.61],
+  ["Костюм спортивный оверсайз без начеса","5419385067",12,117840,0,0],
+  ["Тапочки домашние Bernelli, чёрный, р-р 41","184323922",9,96377,0,0],
+  ["Брюки алладины атласные классические","5317502619",23,89780,602.31,0.67],
+  ["Брюки алладины атласные классические","5317502596",22,86288,92.94,0.11],
+  ["Костюм спортивный оверсайз без начеса","5419386847",9,83312,0,0],
+  ["Костюм спортивный оверсайз без начеса","5419386393",8,80920,0,0],
+  ["Брюки алладины атласные классические","5317502997",21,80000,408.10,0.51],
+  ["Костюм спортивный оверсайз без начеса","5419385873",9,78832,0,0],
+  ["Костюм спортивный оверсайз без начеса","5419385244",9,75460,0,0]
+];
+
+/* ---- данные: ozonbot, «По кампаниям — период 30 дней» ---- */
+const CAMPS = [
+  ["47SK3BGE","36947317",948.16,0,0,null,5.32],
+  ["360/5605","36947660",678.80,0,0,null,2.41],
+  ["39BR3BRW","36947457",602.31,13500,4,4.46,11.73],
+  ["33BR3BLK","36947426",408.10,3600,1,11.34,13.22],
+  ["4646/35037","36947555",286.05,0,0,null,2.77],
+  ["160/77","36947593",232.58,36000,2,0.65,2.58],
+  ["48BR3BLK","36947385",92.94,3600,1,2.58,11.30],
+  ["160/29","36947622",89.04,0,0,null,3.05]
+];
+
+const NS = "http://www.w3.org/2000/svg";
+const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+
+/* =================== график 1: выручка по дням =================== */
+(function salesChart(){
+  const svg = document.getElementById("salesChart");
+  const tip = document.getElementById("salesTip");
+  const W = 1000, H = 300, L = 62, R = 16, T = 16, B = 34;
+  const iw = W - L - R, ih = H - T - B;
+  const max = 180000, ticks = [0, 45000, 90000, 135000, 180000];
+  const x = i => L + (iw * i) / (SALES.length - 1);
+  const y = v => T + ih - (v / max) * ih;
+
+  ticks.forEach(t => {
+    svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(t), y2:y(t), class:"gridline"}));
+    const lb = el("text", {x:L-10, y:y(t)+3.5, class:"tick", "text-anchor":"end"});
+    lb.textContent = t === 0 ? "0" : fmt(t/1000) + " т₽";
+    svg.appendChild(lb);
+  });
+
+  // план (пример)
+  svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(PLAN_DAY), y2:y(PLAN_DAY),
+    stroke:"var(--sample)", "stroke-width":2, "stroke-dasharray":"6 5"}));
+
+  const line = SALES.map((s,i) => `${x(i).toFixed(1)},${y(s[2]).toFixed(1)}`).join(" ");
+  const area = `M${L},${y(0)} L` + line.replace(/ /g, " L") + ` L${L+iw},${y(0)} Z`;
+
+  const grad = el("linearGradient", {id:"gs", x1:"0", y1:"0", x2:"0", y2:"1"});
+  grad.appendChild(el("stop", {offset:"0%", "stop-color":"var(--sales)", "stop-opacity":".22"}));
+  grad.appendChild(el("stop", {offset:"100%", "stop-color":"var(--sales)", "stop-opacity":".02"}));
+  const defs = el("defs", {}); defs.appendChild(grad); svg.appendChild(defs);
+
+  svg.appendChild(el("path", {d:area, fill:"url(#gs)", stroke:"none"}));
+  svg.appendChild(el("polyline", {points:line, fill:"none", stroke:"var(--sales)",
+    "stroke-width":2, "stroke-linejoin":"round", "stroke-linecap":"round"}));
+  svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(0), y2:y(0), class:"axis"}));
+
+  // подписи по X — каждый 5-й день + последний
+  SALES.forEach((s,i) => {
+    if (i % 5 !== 0 && i !== SALES.length - 1) return;
+    const lb = el("text", {x:x(i), y:H-12, class:"tick", "text-anchor":"middle"});
+    lb.textContent = s[0]; svg.appendChild(lb);
+  });
+
+  // пик и последний день — прямые подписи
+  const peak = SALES.reduce((a,s,i) => s[2] > SALES[a][2] ? i : a, 0);
+  [[peak,"пик"],[SALES.length-1,"последний"]].forEach(([i,tag]) => {
+    svg.appendChild(el("circle", {cx:x(i), cy:y(SALES[i][2]), r:4.5, fill:"var(--sales)",
+      stroke:"var(--surface)", "stroke-width":2}));
+    const anchor = i > SALES.length - 5 ? "end" : "middle";
+    const lb = el("text", {x:x(i) + (anchor === "end" ? 6 : 0), y:y(SALES[i][2]) - 13,
+      class:"tick", "text-anchor":anchor, fill:"var(--ink-2)", "font-weight":"600"});
+    lb.textContent = rub(SALES[i][2]);
+    svg.appendChild(lb);
+  });
+
+  // hover
+  const cross = el("line", {x1:0, x2:0, y1:T, y2:T+ih, stroke:"var(--ink-3)", "stroke-width":1,
+    "stroke-dasharray":"3 3", opacity:"0"});
+  const knob = el("circle", {r:5, fill:"var(--sales)", stroke:"var(--surface)", "stroke-width":2, opacity:"0"});
+  svg.appendChild(cross); svg.appendChild(knob);
+  const hit = el("rect", {x:L, y:T, width:iw, height:ih, fill:"transparent"});
+  svg.appendChild(hit);
+
+  const box = svg.parentNode;
+  function move(ev){
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) / r.width * W;
+    let i = Math.round((px - L) / iw * (SALES.length - 1));
+    i = Math.max(0, Math.min(SALES.length - 1, i));
+    const s = SALES[i];
+    cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("opacity", ".7");
+    knob.setAttribute("cx", x(i)); knob.setAttribute("cy", y(s[2])); knob.setAttribute("opacity", "1");
+    tip.innerHTML = `<div class="td">${s[0]}.2026</div>
+      <div class="tr"><span>Выручка</span><b>${rub(s[2])}</b></div>
+      <div class="tr"><span>Продано</span><b>${s[1]}${NBSP}шт</b></div>
+      <div class="tr"><span>Средний чек</span><b>${s[1] ? rub(s[2]/s[1]) : "—"}</b></div>`;
+    tip.style.opacity = "1";
+    const bw = box.getBoundingClientRect().width;
+    const left = Math.min(Math.max(x(i) / W * bw - 78, 0), bw - 172);
+    tip.style.left = left + "px";
+    tip.style.top = (y(s[2]) / H * box.getBoundingClientRect().height - 12) + "px";
+  }
+  hit.addEventListener("mousemove", move);
+  hit.addEventListener("mouseleave", () => {
+    tip.style.opacity = "0"; cross.setAttribute("opacity","0"); knob.setAttribute("opacity","0");
+  });
+
+  // неделя к неделе
+  const l7 = SALES.slice(-7).reduce((a,s) => a + s[2], 0);
+  const p7 = SALES.slice(-14,-7).reduce((a,s) => a + s[2], 0);
+  const dlt = (l7 - p7) / p7 * 100;
+  document.getElementById("wow").innerHTML =
+    `Последние 7 дней <b style="font-family:'IBM Plex Mono',monospace">${rub(l7)}</b> ` +
+    `<span class="chip ${dlt >= 0 ? "good" : "bad"}">${dlt >= 0 ? "+" : "−"}${fmt(Math.abs(dlt),1)} %</span> ` +
+    `<span style="color:var(--ink-3)">к предыдущим семи</span>`;
+})();
+
+/* =================== график 2: расход на рекламу =================== */
+(function adChart(){
+  const svg = document.getElementById("adChart");
+  const tip = document.getElementById("adTip");
+  const W = 1000, H = 220, L = 62, R = 16, T = 14, B = 34;
+  const iw = W - L - R, ih = H - T - B;
+  const max = 2400, ticks = [0, 600, 1200, 1800, 2400];
+  const n = ADS.length, slot = iw / n, bw = Math.min(78, slot * 0.5);
+  const y = v => T + ih - (v / max) * ih;
+  const cx = i => L + slot * (i + 0.5);
+
+  ticks.forEach(t => {
+    svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(t), y2:y(t), class:"gridline"}));
+    const lb = el("text", {x:L-10, y:y(t)+3.5, class:"tick", "text-anchor":"end"});
+    lb.textContent = t === 0 ? "0" : fmt(t) + " ₽";
+    svg.appendChild(lb);
+  });
+
+  ADS.forEach((a,i) => {
+    const gx = cx(i) - bw/2;
+    if (a.ok) {
+      const h = Math.max(3, y(0) - y(a.spend));
+      svg.appendChild(el("rect", {x:gx, y:y(a.spend), width:bw, height:h,
+        rx:4, fill:"var(--ads)"}));
+      const lb = el("text", {x:cx(i), y:y(a.spend) - 8, class:"tick", "text-anchor":"middle",
+        fill:"var(--ink-2)", "font-weight":"600"});
+      lb.textContent = rub(a.spend);
+      svg.appendChild(lb);
+    } else {
+      svg.appendChild(el("rect", {x:gx, y:T + ih - 40, width:bw, height:40, rx:4,
+        fill:"none", stroke:"var(--line)", "stroke-width":1.5, "stroke-dasharray":"4 4"}));
+      const lb = el("text", {x:cx(i), y:T + ih - 48, class:"tick", "text-anchor":"middle"});
+      lb.textContent = "нет данных";
+      svg.appendChild(lb);
+    }
+    const d = el("text", {x:cx(i), y:H-12, class:"tick", "text-anchor":"middle"});
+    d.textContent = a.d; svg.appendChild(d);
+  });
+  svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(0), y2:y(0), class:"axis"}));
+
+  const box = svg.parentNode;
+  ADS.forEach((a,i) => {
+    const hit = el("rect", {x:cx(i)-slot/2, y:T, width:slot, height:ih, fill:"transparent"});
+    hit.addEventListener("mouseenter", () => {
+      tip.innerHTML = a.ok
+        ? `<div class="td">${a.d}.2026</div>
+           <div class="tr"><span>Расход</span><b>${rub(a.spend)}</b></div>
+           <div class="tr"><span>Показы</span><b>${fmt(a.imp)}</b></div>
+           <div class="tr"><span>Клики</span><b>${fmt(a.clicks)}</b></div>
+           <div class="tr"><span>Корзины</span><b>${fmt(a.carts)}</b></div>
+           <div class="tr"><span>Заказы</span><b>${fmt(a.orders)}</b></div>`
+        : `<div class="td">${a.d}.2026</div>
+           <div class="tr"><span>Статистика</span><b>не выгружена</b></div>
+           ${a.orders ? `<div class="tr"><span>Заказы</span><b>${a.orders}</b></div>` : ""}`;
+      tip.style.opacity = "1";
+      const bwid = box.getBoundingClientRect().width;
+      tip.style.left = Math.min(Math.max(cx(i)/W*bwid - 80, 0), bwid - 176) + "px";
+      tip.style.top = "8px";
+    });
+    hit.addEventListener("mouseleave", () => { tip.style.opacity = "0"; });
+    svg.appendChild(hit);
+  });
+})();
+
+/* =================== таблицы =================== */
+(function tables(){
+  const maxRev = Math.max(...TOP.map(r => r[3]));
+  const tb = document.querySelector("#topTable tbody");
+  TOP.forEach(([name, sku, units, rev, spend, drr]) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      `<td class="name">${name}<span class="sku">SKU ${sku}</span></td>` +
+      `<td>${units}</td>` +
+      `<td class="bar-cell"><div class="fill" style="width:${(rev/maxRev*100).toFixed(1)}%"></div><span>${rub(rev)}</span></td>` +
+      `<td>${spend ? rub(spend) : "—"}</td>` +
+      `<td>${spend ? `<span class="chip ${drr < 5 ? "good" : "warn"}">${fmt(drr,2)} %</span>`
+                   : `<span class="chip mute">без рекламы</span>`}</td>`;
+    tb.appendChild(tr);
+  });
+
+  const cb = document.querySelector("#campTable tbody");
+  CAMPS.forEach(([name, id, spend, rev, orders, drr, ctr]) => {
+    const chip = drr === null
+      ? `<span class="chip bad">0 заказов</span>`
+      : `<span class="chip ${drr < 5 ? "good" : "warn"}">${fmt(drr,2)} %</span>`;
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      `<td class="name">${name}<span class="sku">ID ${id}</span></td>` +
+      `<td>${rub(spend)}</td><td>${rev ? rub(rev) : "—"}</td><td>${orders}</td>` +
+      `<td>${chip}</td><td>${fmt(ctr,2)} %</td>`;
+    cb.appendChild(tr);
+  });
+})();
+</script>
+</body></html>
