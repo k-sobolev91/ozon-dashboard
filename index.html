@@ -136,6 +136,7 @@ tbody tr:hover td{background:var(--surface-2)}
 .bar-cell{position:relative}
 .bar-cell .fill{position:absolute; left:0; top:3px; bottom:3px; background:var(--sales-soft); border-radius:2px}
 .bar-cell span{position:relative; font-weight:600}
+.empty{padding:22px 12px; text-align:center; color:var(--ink-3); font-size:13px}
 
 .chip{display:inline-block; padding:2px 8px; border-radius:999px; font-family:"JetBrains Mono",monospace;
       font-size:11px; font-weight:600; letter-spacing:.01em}
@@ -151,12 +152,10 @@ tbody tr:hover td{background:var(--surface-2)}
 .note .sev{width:11px; height:11px; border-radius:50%; margin-top:5px; position:relative}
 .note .sev::after{content:""; position:absolute; inset:-4px; border-radius:50%; border:1px solid currentColor; opacity:.35}
 .note .sev.warn{background:var(--warn); color:var(--warn)} .note .sev.bad{background:var(--bad); color:var(--bad)} .note .sev.info{background:var(--ink-3); color:var(--ink-3)}
+.note .sev.good{background:var(--good); color:var(--good)}
 .note h3{margin:0 0 3px; font-size:14px; font-weight:600; font-family:"Fraunces",Georgia,serif}
 .note p{margin:0; color:var(--ink-2); font-size:13px; max-width:78ch}
 .note code{font-family:"JetBrains Mono",monospace; font-size:12px; background:var(--surface-2); padding:1px 5px; border-radius:4px}
-
-.sample-tag{display:inline-flex; align-items:center; gap:5px; font-family:"Work Sans",sans-serif;
-  font-size:11px; font-weight:600; color:var(--sample); background:var(--sample-bg); padding:2px 8px; border-radius:5px}
 
 .srcs{display:flex; flex-wrap:wrap; gap:8px 18px; font-size:12.5px; color:var(--ink-3);
       border-top:1px solid var(--line); padding-top:16px}
@@ -182,40 +181,40 @@ a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outlin
   <header>
     <div class="brandline">
       <div class="eyebrow">Агентский пульт по кабинету Ozon</div>
-      <h1>Пульт Bernelli на Ozon</h1>
+      <h1 id="h-title">Пульт на Ozon</h1>
       <div class="stitch" aria-hidden="true"></div>
       <div class="sub">Два счётчика, за которыми смотрим ежедневно: сколько денег приносит витрина и сколько стоит реклама, которая их приводит.</div>
     </div>
     <div class="stamp">
-      <span class="live"><span class="dot"></span> Обновлено <b>13.09.2026, 11:44</b></span>
-      <span>Данные тянутся из Google Диска — таблицы <b>ozonbot</b> и <b>AleksaForOzon</b></span>
-      <span>Пересчитывается каждое утро в <b>08:20</b></span>
+      <span class="live"><span class="dot"></span> Обновлено <b id="s-generated"></b></span>
+      <span>Данные — из базы бота: продажи Ozon и статистика кампаний (те же, что в <b>AleksaForOzon</b>)</span>
+      <span id="s-next"></span>
     </div>
   </header>
 
   <div class="kpis">
-    <div class="kpi accent-sales"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></svg><span class="k">Выручка, 30 дн.</span></div><div class="v">2 150 399 ₽</div><div class="n">11.08 – 09.09</div></div>
-    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l8-4 8 4-8 4-8-4Z"/><path d="M4 8v8l8 4 8-4V8"/><path d="M12 12v8"/></svg><span class="k">Продано</span></div><div class="v">359 шт</div><div class="n">12,4 шт в день</div></div>
-    <div class="kpi accent-ads"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span class="k">Расход на рекламу</span></div><div class="v">3 338 ₽</div><div class="n">кампании с 02.09</div></div>
-    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/></svg><span class="k">ДРР</span></div><div class="v">0,16 %</div><div class="n">доля рекламы в выручке</div></div>
-    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l6 15 2.2-6.3L19 10.5 5 4Z"/></svg><span class="k">CTR</span></div><div class="v">5,61 %</div><div class="n">клик из показа</div></div>
-    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l6 6"/></svg><span class="k">CPC</span></div><div class="v">3,15 ₽</div><div class="n">цена клика</div></div>
+    <div class="kpi accent-sales"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></svg><span class="k" id="k-rev-label">Выручка</span></div><div class="v" id="k-rev"></div><div class="n" id="k-rev-note"></div></div>
+    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l8-4 8 4-8 4-8-4Z"/><path d="M4 8v8l8 4 8-4V8"/><path d="M12 12v8"/></svg><span class="k">Продано</span></div><div class="v" id="k-units"></div><div class="n" id="k-units-note"></div></div>
+    <div class="kpi accent-ads"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span class="k">Расход на рекламу</span></div><div class="v" id="k-spend"></div><div class="n" id="k-spend-note"></div></div>
+    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/></svg><span class="k">ДРР</span></div><div class="v" id="k-drr"></div><div class="n">доля рекламы в выручке</div></div>
+    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l6 15 2.2-6.3L19 10.5 5 4Z"/></svg><span class="k">CTR</span></div><div class="v" id="k-ctr"></div><div class="n">клик из показа</div></div>
+    <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l6 6"/></svg><span class="k">CPC</span></div><div class="v" id="k-cpc"></div><div class="n">цена клика</div></div>
   </div>
 
   <!-- ============ БЛОК 1 — ПРОДАЖИ ============ -->
   <section class="panel">
     <div class="phead">
       <h2>Выручка по дням</h2>
-      <div class="meta">29 дней, 11.08 – 08.09.2026</div>
+      <div class="meta" id="m-sales"></div>
     </div>
     <div class="pbody">
       <div class="legend">
         <span><i class="swatch line" style="background:var(--sales)"></i> Выручка за день</span>
-        <span><i class="swatch dash"></i> План 60 000 ₽/день <span class="sample-tag">пример</span></span>
+        <span><i class="swatch dash"></i> <span id="l-avg"></span></span>
         <span id="wow"></span>
       </div>
       <div class="chartbox">
-        <svg id="salesChart" viewBox="0 0 1000 300" role="img" aria-label="Выручка по дням, 11 августа – 08 сентября 2026"></svg>
+        <svg id="salesChart" viewBox="0 0 1000 300" role="img" aria-label="Выручка по дням"></svg>
         <div class="tip" id="salesTip"></div>
       </div>
 
@@ -233,27 +232,21 @@ a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outlin
   <section class="panel">
     <div class="phead">
       <h2>Реклама: расход и воронка</h2>
-      <div class="meta">кампании запущены 02.09, последний полный день 08.09</div>
+      <div class="meta" id="m-ads"></div>
     </div>
     <div class="pbody">
       <div class="legend">
         <span><i class="swatch" style="background:var(--ads)"></i> Расход за день</span>
-        <span style="color:var(--ink-3)">09.09 бот ещё не выгрузил статистику</span>
+        <span style="color:var(--ink-3)" id="l-ads-note"></span>
       </div>
       <div class="chartbox">
-        <svg id="adChart" viewBox="0 0 1000 220" role="img" aria-label="Расход на рекламу по дням, 3–8 сентября 2026"></svg>
+        <svg id="adChart" viewBox="0 0 1000 220" role="img" aria-label="Расход на рекламу по дням"></svg>
         <div class="tip" id="adTip"></div>
       </div>
 
-      <div class="funnel">
-        <div class="fst"><div class="fk">Показы</div><div class="fv">23 278</div><div class="fr">03–08.09</div></div>
-        <div class="fst"><div class="fk">Клики</div><div class="fv">1 262</div><div class="fr">CTR 5,4 %</div></div>
-        <div class="fst"><div class="fk">Корзины</div><div class="fv">73</div><div class="fr">5,8 % от кликов</div></div>
-        <div class="fst"><div class="fk">Заказы</div><div class="fv">8</div><div class="fr">11,0 % от корзин</div></div>
-        <div class="fst"><div class="fk">Расход на заказ</div><div class="fv">560 ₽</div><div class="fr">4 480 ₽ / 8 заказов</div></div>
-      </div>
+      <div class="funnel" id="funnel"></div>
 
-      <div class="section-rule" style="margin-top:22px"><span class="num">Кампании за 30 дней</span><span class="ln"></span></div>
+      <div class="section-rule" style="margin-top:22px"><span class="num" id="n-camps">Кампании</span><span class="ln"></span></div>
       <div class="tablewrap">
         <table id="campTable">
           <thead><tr><th>Кампания</th><th>Расход</th><th>Выручка</th><th>Заказы</th><th>ДРР</th><th>CTR</th></tr></thead>
@@ -267,94 +260,82 @@ a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outlin
   <section class="panel">
     <div class="phead">
       <h2>Что мешает пульту</h2>
-      <div class="meta">нашлось при разборе таблиц</div>
+      <div class="meta">пересчитывается при каждом обновлении</div>
     </div>
     <div class="pbody">
-      <div class="notes">
-        <div class="note"><div class="sev info"></div><div>
-          <h3>Остатки выгружаются — большинство «нулей» реальные</h3>
-          <p>Перепроверено: колонка <code>Остаток</code> в листе «Товары» обновляется каждый день, синхронизация не падает. Из 500 SKU у 426 остаток правда <code>0</code> — это непроданные размеры/цвета в размерном ряду, а не сбой выгрузки. Ходовые позиции (см. топ товаров) — в наличии, от 2 до 29 шт, риска слить рекламу на товар без остатка сейчас нет.</p>
-        </div></div>
-        <div class="note"><div class="sev warn"></div><div>
-          <h3>Себестоимость пустая — маржи нет</h3>
-          <p>Колонка <code>Себестоимость</code> не заполнена ни по одному товару, поэтому пульт показывает выручку, а не прибыль. С себестоимостью тут же появятся маржа, ROI рекламы и точка безубыточности по каждому SKU.</p>
-        </div></div>
-        <div class="note"><div class="sev warn"></div><div>
-          <h3>Колонка «ДРР от заказа» — это не ДРР</h3>
-          <p>В таблице <b>AleksaForOzon</b> значение равно расходу, делённому на количество заказов (03.09, артикул 160/77_43: 85,65 ₽ ÷ 2 = 42,83). Это расход на заказ, а не доля рекламы в выручке. На пульте показан именно расход на заказ.</p>
-        </div></div>
-        <div class="note"><div class="sev info"></div><div>
-          <h3>Разрыв в датах</h3>
-          <p>Разбивка продаж по SKU в <b>ozonbot</b> заканчивается 08.09, хотя сводка периода в шапке той же таблицы уже включает 09.09 (2 150 399 ₽ и 359 шт против 1 995 979 ₽ и 338 шт по дневному ряду) — то есть Ozon досчитывает сводный итог быстрее, чем детальную разбивку по товарам. Рекламные строки в <b>AleksaForOzon</b> обрываются на 09.09 без итоговой строки за день. Пульт показывает график только по дням с подтверждённым дневным итогом, а не досчитывает их сам.</p>
-        </div></div>
-      </div>
+      <div class="notes" id="notes"></div>
 
-      <div class="srcs">
+      <div class="srcs" id="srcs">
         <span>Источники:</span>
-        <a href="https://docs.google.com/spreadsheets/d/1TdWwQb7vAOH1EMAwIk3svRP1jP_z6rzWFAS6KmjlpyI/edit" target="_blank" rel="noopener">ozonbot — Ozon Analytics</a>
-        <a href="https://docs.google.com/spreadsheets/d/1er_1t8Qb1JfYY9wtSG29FuEbQr8lv2pRxpIbkoNic3k/edit" target="_blank" rel="noopener">AleksaForOzon — реклама по дням</a>
       </div>
     </div>
   </section>
 
 </div>
 
+<script type="application/json" id="dashboard-data">{"title": "Пульт Bernelli на Ozon", "generated_at": "13.09.2026, 20:53 МСК", "next_update": "каждый день в 07:00, 23:00 МСК", "period": {"days": 30, "label": "15.08 – 13.09"}, "kpi": {"revenue": 3067246.0, "units": 513, "units_per_day": 17.1, "spend": 25496.25, "drr": 0.83, "ctr": 6.82, "cpc": 3.7, "clicks": 6899, "impressions": 101170, "ads_since": "02.09"}, "avg_day": 102241.53333333334, "sales": [["15.08", 7, 42948.0], ["16.08", 5, 24519.0], ["17.08", 7, 34955.0], ["18.08", 7, 37045.0], ["19.08", 17, 103911.0], ["20.08", 9, 49889.0], ["21.08", 10, 76532.0], ["22.08", 4, 28498.0], ["23.08", 8, 61378.0], ["24.08", 5, 33400.0], ["25.08", 16, 50356.0], ["26.08", 33, 112042.0], ["27.08", 36, 164230.0], ["28.08", 14, 79034.0], ["29.08", 11, 65360.0], ["30.08", 15, 130320.0], ["31.08", 9, 45360.0], ["01.09", 10, 48880.0], ["02.09", 21, 169080.0], ["03.09", 12, 106640.0], ["04.09", 7, 52880.0], ["05.09", 12, 87080.0], ["06.09", 3, 30420.0], ["07.09", 12, 70660.0], ["08.09", 30, 184073.0], ["09.09", 24, 159855.0], ["10.09", 33, 195841.0], ["11.09", 40, 212150.0], ["12.09", 43, 277870.0], ["13.09", 53, 332040.0]], "sales_label": "30 дн., 15.08 – 13.09", "ads": [{"d": "02.09", "spend": 976.63, "imp": 6066, "clicks": 408, "carts": 21, "orders": 0, "ok": true}, {"d": "03.09", "spend": 969.73, "imp": 5209, "clicks": 288, "carts": 17, "orders": 3, "ok": true}, {"d": "04.09", "spend": 619.52, "imp": 3723, "clicks": 145, "carts": 5, "orders": 1, "ok": true}, {"d": "05.09", "spend": 772.1, "imp": 3849, "clicks": 217, "carts": 16, "orders": 1, "ok": true}, {"d": "06.09", "spend": 0.0, "imp": 0, "clicks": 0, "carts": 0, "orders": 0, "ok": true}, {"d": "07.09", "spend": 0.0, "imp": 0, "clicks": 0, "carts": 0, "orders": 3, "ok": true}, {"d": "08.09", "spend": 2118.48, "imp": 10497, "clicks": 612, "carts": 35, "orders": 0, "ok": true}, {"d": "09.09", "spend": 2422.41, "imp": 10897, "clicks": 578, "carts": 25, "orders": 2, "ok": true}, {"d": "10.09", "spend": 4021.19, "imp": 15756, "clicks": 1103, "carts": 68, "orders": 0, "ok": true}, {"d": "11.09", "spend": 5096.48, "imp": 16480, "clicks": 1265, "carts": 72, "orders": 2, "ok": true}, {"d": "12.09", "spend": 4988.26, "imp": 14863, "clicks": 1145, "carts": 96, "orders": 1, "ok": true}, {"d": "13.09", "spend": 3511.45, "imp": 13830, "clicks": 1138, "carts": 89, "orders": 1, "ok": true}], "ads_label": "02.09 – 13.09", "ads_note": "", "funnel": {"impressions": 101170, "clicks": 6899, "carts": 444, "orders": 14, "spend": 25496.25, "ctr": 6.819215182366315, "carts_pct": 6.435715321061024, "orders_pct": 3.153153153153153, "spend_per_order": 1821.1607142857142, "range": "02.09 – 13.09"}, "top": [{"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385311, "units": 22, "revenue": 216500.0, "spend": 7624.91, "drr": 3.52, "stock": 22}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385067, "units": 21, "revenue": 210900.0, "spend": 0.0, "drr": 0.0, "stock": 15}, {"name": "Брюки алладины атласные классические", "sku": 5317502997, "units": 45, "revenue": 204800.0, "spend": 8039.16, "drr": 3.93, "stock": 5}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385873, "units": 19, "revenue": 182232.0, "spend": 2053.59, "drr": 1.13, "stock": 19}, {"name": "Брюки алладины атласные классические", "sku": 5317502573, "units": 31, "revenue": 132872.0, "spend": 0.0, "drr": 0.0, "stock": 17}, {"name": "Брюки алладины атласные классические", "sku": 5317502596, "units": 29, "revenue": 122696.0, "spend": 92.94, "drr": 0.08, "stock": 2}, {"name": "Брюки алладины атласные классические", "sku": 5317502601, "units": 27, "revenue": 119700.0, "spend": 0.0, "drr": 0.0, "stock": 8}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419386847, "units": 12, "revenue": 114332.0, "spend": 0.0, "drr": 0.0, "stock": 29}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419386393, "units": 11, "revenue": 111940.0, "spend": 0.0, "drr": 0.0, "stock": 26}, {"name": "Брюки алладины атласные классические", "sku": 5317502619, "units": 27, "revenue": 110588.0, "spend": 602.31, "drr": 0.54, "stock": 21}], "camps": [{"name": "брюки алладины_черн_атл 33BR3BLK42 (поиск и рек)", "id": "40459373", "spend": 7631.06, "revenue": 15600.0, "orders": 3, "drr": 48.92, "ctr": 10.82}, {"name": "Костюм_серый 47SK3BGE/L (поиск и рек)", "id": "40457973", "spend": 6676.75, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 4.87}, {"name": "костюм спорт черный_ 46SK3BLK/L", "id": "41468155", "spend": 2053.59, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 6.7}, {"name": "Блузка_боди коричневая _ 29BO4BLK42/44 (поиск и рек)", "id": "41066372", "spend": 2014.25, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 8.9}, {"name": "Брюки алладины_костюмка 48BR3BLK44 (поиск и рек)", "id": "40458190", "spend": 1918.08, "revenue": 5015.0, "orders": 1, "drr": 38.25, "ctr": 4.12}, {"name": "Брюки_алладины_костюмка_48BR3BLK44", "id": "41257511", "spend": 1864.54, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 7.19}, {"name": "47SK3BGE", "id": "36947317", "spend": 948.16, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 5.32}, {"name": "360/5605", "id": "36947660", "spend": 678.8, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 2.41}, {"name": "39BR3BRW", "id": "36947457", "spend": 602.31, "revenue": 13500.0, "orders": 4, "drr": 4.46, "ctr": 11.73}, {"name": "33BR3BLK", "id": "36947426", "spend": 408.1, "revenue": 10800.0, "orders": 3, "drr": 3.78, "ctr": 13.22}, {"name": "4646/35037", "id": "36947555", "spend": 286.05, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 2.77}, {"name": "160/77", "id": "36947593", "spend": 232.58, "revenue": 36000.0, "orders": 2, "drr": 0.65, "ctr": 2.58}], "notes": [{"sev": "info", "title": "Остатки выгружаются — большинство «нулей» реальные", "html": "Из 471 SKU у 385 остаток <code>0<\/code> — это непроданные размеры и цвета в размерном ряду, а не сбой выгрузки. Ходовые позиции из топа продаж — в наличии."}, {"sev": "warn", "title": "Себестоимость пустая — маржи нет", "html": "Колонка <code>Себестоимость<\/code> не заполнена у 471 из 471 товаров, поэтому пульт показывает выручку, а не прибыль. С себестоимостью появятся маржа, ROI рекламы и точка безубыточности по каждому SKU — заполняется вручную в листе «Товары»."}], "sources": [{"title": "Google-таблица — продажи и реклама", "url": "https://docs.google.com/spreadsheets/d/1TdWwQb7vAOH1EMAwIk3svRP1jP_z6rzWFAS6KmjlpyI/edit"}, {"title": "AleksaForOzon — реклама по товарам", "url": "https://docs.google.com/spreadsheets/d/1er_1t8Qb1JfYY9wtSG29FuEbQr8lv2pRxpIbkoNic3k/edit"}]}</script>
 <script>
 "use strict";
+const DATA = JSON.parse(document.getElementById("dashboard-data").textContent);
+
 const NBSP = " ";
-const fmt = (n, d=0) => n.toLocaleString("ru-RU", {minimumFractionDigits:d, maximumFractionDigits:d});
+const fmt = (n, d=0) => Number(n).toLocaleString("ru-RU", {minimumFractionDigits:d, maximumFractionDigits:d});
 const rub = n => fmt(Math.round(n)) + NBSP + "₽";
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-/* ---- данные: ozonbot, лист «продажи по дням» (11.08–08.09.2026) ---- */
-const SALES = [["11.08",17,116128],["12.08",0,0],["13.08",0,0],["14.08",4,21081],["15.08",7,42948],
-["16.08",5,24519],["17.08",7,34955],["18.08",7,37045],["19.08",17,103911],["20.08",9,49889],
-["21.08",10,76532],["22.08",4,28498],["23.08",8,61378],["24.08",5,33400],["25.08",16,50356],
-["26.08",33,112042],["27.08",36,164230],["28.08",14,79034],["29.08",11,65360],["30.08",15,130320],
-["31.08",9,45360],["01.09",10,48880],["02.09",21,169080],["03.09",12,106640],["04.09",7,52880],
-["05.09",12,87080],["06.09",3,30420],["07.09",12,70660],["08.09",27,153353]];
+const SALES = DATA.sales;      // [[дд.мм, шт, выручка], ...]
+const ADS = DATA.ads;          // [{d, spend, imp, clicks, carts, orders, ok}, ...]
+const TOP = DATA.top;          // [{name, sku, units, revenue, spend, drr, stock}, ...]
+const CAMPS = DATA.camps;      // [{name, id, spend, revenue, orders, drr, ctr}, ...]
 
-/* ПРИМЕР — целевой дневной план, реальной цифры в таблицах нет */
-const PLAN_DAY = 60000;
-
-/* ---- данные: AleksaForOzon, дневные итоги (строка «Итого за ДД.ММ.ГГГГ» из таблицы) ---- */
-/* 09.09: строки по SKU уже есть, но строка «Итого за день» бот ещё не досчитал — не показываем как факт */
-const ADS = [
-  {d:"03.09", spend:969.73, imp:5209, clicks:288, carts:17, orders:3, ok:true},
-  {d:"04.09", spend:619.52, imp:3723, clicks:145, carts:5,  orders:1, ok:true},
-  {d:"05.09", spend:772.10, imp:3849, clicks:217, carts:16, orders:1, ok:true},
-  {d:"06.09", spend:0,      imp:0,    clicks:0,   carts:0,  orders:0, ok:true},
-  {d:"07.09", spend:0,      imp:0,    clicks:0,   carts:0,  orders:3, ok:true},
-  {d:"08.09", spend:2118.48,imp:10497,clicks:612, carts:35, orders:0, ok:true}
-];
-
-/* ---- данные: ozonbot, «По товарам — период 30 дней» + остаток из листа «Товары» (проверено 13.09.2026) ---- */
-const TOP = [
-  ["Костюм спортивный оверсайз без начеса","5419385311",16,154460,948.16,0.61,22],
-  ["Костюм спортивный оверсайз без начеса","5419385067",12,117840,0,0,15],
-  ["Тапочки домашние Bernelli, чёрный, р-р 41","184323922",9,96377,0,0,2],
-  ["Брюки алладины атласные классические","5317502619",23,89780,602.31,0.67,21],
-  ["Брюки алладины атласные классические","5317502596",22,86288,92.94,0.11,2],
-  ["Костюм спортивный оверсайз без начеса","5419386847",9,83312,0,0,29],
-  ["Костюм спортивный оверсайз без начеса","5419386393",8,80920,0,0,26],
-  ["Брюки алладины атласные классические","5317502997",21,80000,408.10,0.51,5],
-  ["Костюм спортивный оверсайз без начеса","5419385873",9,78832,0,0,19],
-  ["Костюм спортивный оверсайз без начеса","5419385244",9,75460,0,0,24]
-];
-
-/* ---- данные: ozonbot, «По кампаниям — период 30 дней» ---- */
-const CAMPS = [
-  ["47SK3BGE","36947317",948.16,0,0,null,5.32],
-  ["360/5605","36947660",678.80,0,0,null,2.41],
-  ["39BR3BRW","36947457",602.31,13500,4,4.46,11.73],
-  ["33BR3BLK","36947426",408.10,3600,1,11.34,13.22],
-  ["4646/35037","36947555",286.05,0,0,null,2.77],
-  ["160/77","36947593",232.58,36000,2,0.65,2.58],
-  ["48BR3BLK","36947385",92.94,3600,1,2.58,11.30],
-  ["160/29","36947622",89.04,0,0,null,3.05]
-];
+/* Шкала: «красивый» максимум с запасом 10% над данными — ось не должна
+   зависеть от конкретного периода, иначе при смене данных график
+   упирался бы в потолок или болтался в нижней трети. */
+function niceScale(maxValue){
+  if (!(maxValue > 0)) return {max:1, ticks:[0, 1]};
+  const raw = maxValue * 1.1;
+  const pow = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].find(s => s * pow >= raw / 4) * pow;
+  const max = step * 4;
+  return {max, ticks:[0, step, step*2, step*3, max]};
+}
 
 const NS = "http://www.w3.org/2000/svg";
 const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+
+/* =================== шапка и KPI =================== */
+(function head(){
+  const k = DATA.kpi;
+  document.title = DATA.title;
+  document.getElementById("h-title").textContent = DATA.title;
+  document.getElementById("s-generated").textContent = DATA.generated_at;
+  document.getElementById("s-next").innerHTML = DATA.next_update
+    ? `Пересчитывается автоматически: <b>${esc(DATA.next_update)}</b>` : "";
+
+  document.getElementById("k-rev-label").textContent = `Выручка, ${DATA.period.days} дн.`;
+  document.getElementById("k-rev").textContent = rub(k.revenue);
+  document.getElementById("k-rev-note").textContent = DATA.period.label;
+  document.getElementById("k-units").textContent = fmt(k.units) + NBSP + "шт";
+  document.getElementById("k-units-note").textContent = fmt(k.units_per_day, 1) + " шт в день";
+  document.getElementById("k-spend").textContent = rub(k.spend);
+  document.getElementById("k-spend-note").textContent = k.ads_since ? "кампании с " + k.ads_since : "нет открученных кампаний";
+  document.getElementById("k-drr").textContent = k.revenue ? fmt(k.drr, 2) + " %" : "—";
+  document.getElementById("k-ctr").textContent = k.impressions ? fmt(k.ctr, 2) + " %" : "—";
+  document.getElementById("k-cpc").textContent = k.clicks ? rub(k.cpc) : "—";
+
+  document.getElementById("m-sales").textContent = DATA.sales_label;
+  document.getElementById("m-ads").textContent = DATA.ads_label;
+  document.getElementById("l-ads-note").textContent = DATA.ads_note || "";
+  document.getElementById("n-camps").textContent = `Кампании за ${DATA.period.days} дней`;
+  document.getElementById("l-avg").textContent = "Среднее за период " + rub(DATA.avg_day);
+
+  const srcs = document.getElementById("srcs");
+  DATA.sources.forEach(s => {
+    const a = document.createElement("a");
+    a.href = s.url; a.target = "_blank"; a.rel = "noopener"; a.textContent = s.title;
+    srcs.appendChild(a);
+  });
+})();
 
 /* =================== график 1: выручка по дням =================== */
 (function salesChart(){
@@ -362,19 +343,21 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
   const tip = document.getElementById("salesTip");
   const W = 1000, H = 300, L = 62, R = 16, T = 16, B = 34;
   const iw = W - L - R, ih = H - T - B;
-  const max = 180000, ticks = [0, 45000, 90000, 135000, 180000];
-  const x = i => L + (iw * i) / (SALES.length - 1);
-  const y = v => T + ih - (v / max) * ih;
+  if (SALES.length < 2) { svg.parentNode.innerHTML = '<div class="empty">Недостаточно данных по продажам за период</div>'; return; }
 
-  ticks.forEach(t => {
+  const scale = niceScale(Math.max(...SALES.map(s => s[2])));
+  const x = i => L + (iw * i) / (SALES.length - 1);
+  const y = v => T + ih - (v / scale.max) * ih;
+
+  scale.ticks.forEach(t => {
     svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(t), y2:y(t), class:"gridline"}));
     const lb = el("text", {x:L-10, y:y(t)+3.5, class:"tick", "text-anchor":"end"});
-    lb.textContent = t === 0 ? "0" : fmt(t/1000) + " т₽";
+    lb.textContent = t === 0 ? "0" : (t >= 1000 ? fmt(t/1000) + " т₽" : fmt(t) + " ₽");
     svg.appendChild(lb);
   });
 
-  // план (пример)
-  svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(PLAN_DAY), y2:y(PLAN_DAY),
+  // среднее за период — ориентир вместо выдуманного плана
+  svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(DATA.avg_day), y2:y(DATA.avg_day),
     stroke:"var(--sample)", "stroke-width":2, "stroke-dasharray":"6 5"}));
 
   const line = SALES.map((s,i) => `${x(i).toFixed(1)},${y(s[2]).toFixed(1)}`).join(" ");
@@ -391,16 +374,16 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
     "stroke-width":2.75, "stroke-linejoin":"round", "stroke-linecap":"round"}));
   svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(0), y2:y(0), class:"axis"}));
 
-  // подписи по X — каждый 5-й день + последний
+  const step = Math.max(1, Math.round(SALES.length / 6));
   SALES.forEach((s,i) => {
-    if (i % 5 !== 0 && i !== SALES.length - 1) return;
+    if (i % step !== 0 && i !== SALES.length - 1) return;
     const lb = el("text", {x:x(i), y:H-12, class:"tick", "text-anchor":"middle"});
     lb.textContent = s[0]; svg.appendChild(lb);
   });
 
   // пик и последний день — прямые подписи
   const peak = SALES.reduce((a,s,i) => s[2] > SALES[a][2] ? i : a, 0);
-  [[peak,"пик"],[SALES.length-1,"последний"]].forEach(([i,tag]) => {
+  [peak, SALES.length-1].forEach(i => {
     svg.appendChild(el("circle", {cx:x(i), cy:y(SALES[i][2]), r:8, fill:"none",
       stroke:"var(--sales)", "stroke-width":1.2, opacity:".4"}));
     svg.appendChild(el("circle", {cx:x(i), cy:y(SALES[i][2]), r:4.5, fill:"var(--sales)",
@@ -429,9 +412,9 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
     const s = SALES[i];
     cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("opacity", ".7");
     knob.setAttribute("cx", x(i)); knob.setAttribute("cy", y(s[2])); knob.setAttribute("opacity", "1");
-    tip.innerHTML = `<div class="td">${s[0]}.2026</div>
+    tip.innerHTML = `<div class="td">${esc(s[0])}</div>
       <div class="tr"><span>Выручка</span><b>${rub(s[2])}</b></div>
-      <div class="tr"><span>Продано</span><b>${s[1]}${NBSP}шт</b></div>
+      <div class="tr"><span>Продано</span><b>${fmt(s[1])}${NBSP}шт</b></div>
       <div class="tr"><span>Средний чек</span><b>${s[1] ? rub(s[2]/s[1]) : "—"}</b></div>`;
     tip.style.opacity = "1";
     const bw = box.getBoundingClientRect().width;
@@ -445,13 +428,15 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
   });
 
   // неделя к неделе
-  const l7 = SALES.slice(-7).reduce((a,s) => a + s[2], 0);
-  const p7 = SALES.slice(-14,-7).reduce((a,s) => a + s[2], 0);
-  const dlt = (l7 - p7) / p7 * 100;
-  document.getElementById("wow").innerHTML =
-    `Последние 7 дней <b style="font-family:'JetBrains Mono',monospace">${rub(l7)}</b> ` +
-    `<span class="chip ${dlt >= 0 ? "good" : "bad"}">${dlt >= 0 ? "+" : "−"}${fmt(Math.abs(dlt),1)} %</span> ` +
-    `<span style="color:var(--ink-3)">к предыдущим семи</span>`;
+  if (SALES.length >= 14) {
+    const l7 = SALES.slice(-7).reduce((a,s) => a + s[2], 0);
+    const p7 = SALES.slice(-14,-7).reduce((a,s) => a + s[2], 0);
+    const dlt = p7 ? (l7 - p7) / p7 * 100 : 0;
+    document.getElementById("wow").innerHTML =
+      `Последние 7 дней <b style="font-family:'JetBrains Mono',monospace">${rub(l7)}</b> ` +
+      (p7 ? `<span class="chip ${dlt >= 0 ? "good" : "bad"}">${dlt >= 0 ? "+" : "−"}${fmt(Math.abs(dlt),1)} %</span> ` +
+            `<span style="color:var(--ink-3)">к предыдущим семи</span>` : "");
+  }
 })();
 
 /* =================== график 2: расход на рекламу =================== */
@@ -460,12 +445,14 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
   const tip = document.getElementById("adTip");
   const W = 1000, H = 220, L = 62, R = 16, T = 14, B = 34;
   const iw = W - L - R, ih = H - T - B;
-  const max = 2400, ticks = [0, 600, 1200, 1800, 2400];
+  if (!ADS.length) { svg.parentNode.innerHTML = '<div class="empty">За период нет статистики по кампаниям</div>'; return; }
+
+  const scale = niceScale(Math.max(...ADS.map(a => a.spend)));
   const n = ADS.length, slot = iw / n, bw = Math.min(78, slot * 0.5);
-  const y = v => T + ih - (v / max) * ih;
+  const y = v => T + ih - (v / scale.max) * ih;
   const cx = i => L + slot * (i + 0.5);
 
-  ticks.forEach(t => {
+  scale.ticks.forEach(t => {
     svg.appendChild(el("line", {x1:L, x2:L+iw, y1:y(t), y2:y(t), class:"gridline"}));
     const lb = el("text", {x:L-10, y:y(t)+3.5, class:"tick", "text-anchor":"end"});
     lb.textContent = t === 0 ? "0" : fmt(t) + " ₽";
@@ -476,8 +463,7 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
     const gx = cx(i) - bw/2;
     if (a.ok) {
       const h = Math.max(3, y(0) - y(a.spend));
-      svg.appendChild(el("rect", {x:gx, y:y(a.spend), width:bw, height:h,
-        rx:5, fill:"var(--ads)"}));
+      svg.appendChild(el("rect", {x:gx, y:y(a.spend), width:bw, height:h, rx:5, fill:"var(--ads)"}));
       const lb = el("text", {x:cx(i), y:y(a.spend) - 8, class:"tick", "text-anchor":"middle",
         fill:"var(--ink-2)", "font-weight":"600"});
       lb.textContent = rub(a.spend);
@@ -499,15 +485,14 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
     const hit = el("rect", {x:cx(i)-slot/2, y:T, width:slot, height:ih, fill:"transparent"});
     hit.addEventListener("mouseenter", () => {
       tip.innerHTML = a.ok
-        ? `<div class="td">${a.d}.2026</div>
+        ? `<div class="td">${esc(a.d)}</div>
            <div class="tr"><span>Расход</span><b>${rub(a.spend)}</b></div>
            <div class="tr"><span>Показы</span><b>${fmt(a.imp)}</b></div>
            <div class="tr"><span>Клики</span><b>${fmt(a.clicks)}</b></div>
            <div class="tr"><span>Корзины</span><b>${fmt(a.carts)}</b></div>
            <div class="tr"><span>Заказы</span><b>${fmt(a.orders)}</b></div>`
-        : `<div class="td">${a.d}.2026</div>
-           <div class="tr"><span>Статистика</span><b>не выгружена</b></div>
-           ${a.orders ? `<div class="tr"><span>Заказы</span><b>${a.orders}</b></div>` : ""}`;
+        : `<div class="td">${esc(a.d)}</div>
+           <div class="tr"><span>Статистика</span><b>не выгружена</b></div>`;
       tip.style.opacity = "1";
       const bwid = box.getBoundingClientRect().width;
       tip.style.left = Math.min(Math.max(cx(i)/W*bwid - 80, 0), bwid - 176) + "px";
@@ -518,36 +503,75 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
   });
 })();
 
+/* =================== воронка =================== */
+(function funnel(){
+  const f = DATA.funnel;
+  const cells = [
+    ["Показы", fmt(f.impressions), f.range],
+    ["Клики", fmt(f.clicks), f.impressions ? `CTR ${fmt(f.ctr,1)} %` : "—"],
+    ["Корзины", fmt(f.carts), f.clicks ? `${fmt(f.carts_pct,1)} % от кликов` : "—"],
+    ["Заказы", fmt(f.orders), f.carts ? `${fmt(f.orders_pct,1)} % от корзин` : "—"],
+    ["Расход на заказ", f.orders ? rub(f.spend_per_order) : "—",
+     f.orders ? `${rub(f.spend)} / ${fmt(f.orders)} заказов` : `${rub(f.spend)}, заказов нет`],
+  ];
+  document.getElementById("funnel").innerHTML = cells.map(([k,v,r]) =>
+    `<div class="fst"><div class="fk">${esc(k)}</div><div class="fv">${v}</div><div class="fr">${esc(r)}</div></div>`
+  ).join("");
+})();
+
 /* =================== таблицы =================== */
 (function tables(){
-  const maxRev = Math.max(...TOP.map(r => r[3]));
   const tb = document.querySelector("#topTable tbody");
-  TOP.forEach(([name, sku, units, rev, spend, drr, stock]) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML =
-      `<td class="name">${name}<span class="sku">SKU ${sku}</span></td>` +
-      `<td>${units}</td>` +
-      `<td class="bar-cell"><div class="fill" style="width:${(rev/maxRev*100).toFixed(1)}%"></div><span>${rub(rev)}</span></td>` +
-      `<td>${spend ? rub(spend) : "—"}</td>` +
-      `<td>${spend ? `<span class="chip ${drr < 5 ? "good" : "warn"}">${fmt(drr,2)} %</span>`
-                   : `<span class="chip mute">без рекламы</span>`}</td>` +
-      `<td>${stock > 0 ? `<span class="chip ${stock < 5 ? "warn" : "good"}">${fmt(stock)} шт</span>`
-                        : `<span class="chip bad">нет в наличии</span>`}</td>`;
-    tb.appendChild(tr);
-  });
+  if (!TOP.length) {
+    tb.innerHTML = `<tr><td colspan="6" class="empty">За период продаж не было</td></tr>`;
+  } else {
+    const maxRev = Math.max(...TOP.map(r => r.revenue));
+    TOP.forEach(r => {
+      const tr = document.createElement("tr");
+      tr.innerHTML =
+        `<td class="name">${esc(r.name || "без названия")}<span class="sku">SKU ${esc(r.sku)}</span></td>` +
+        `<td>${fmt(r.units)}</td>` +
+        `<td class="bar-cell"><div class="fill" style="width:${(r.revenue/maxRev*100).toFixed(1)}%"></div><span>${rub(r.revenue)}</span></td>` +
+        `<td>${r.spend ? rub(r.spend) : "—"}</td>` +
+        `<td>${r.spend ? `<span class="chip ${r.drr < 5 ? "good" : "warn"}">${fmt(r.drr,2)} %</span>`
+                       : `<span class="chip mute">без рекламы</span>`}</td>` +
+        `<td>${r.stock === null ? `<span class="chip mute">—</span>`
+             : r.stock > 0 ? `<span class="chip ${r.stock < 5 ? "warn" : "good"}">${fmt(r.stock)} шт</span>`
+                           : `<span class="chip bad">нет в наличии</span>`}</td>`;
+      tb.appendChild(tr);
+    });
+  }
 
   const cb = document.querySelector("#campTable tbody");
-  CAMPS.forEach(([name, id, spend, rev, orders, drr, ctr]) => {
-    const chip = drr === null
-      ? `<span class="chip bad">0 заказов</span>`
-      : `<span class="chip ${drr < 5 ? "good" : "warn"}">${fmt(drr,2)} %</span>`;
-    const tr = document.createElement("tr");
-    tr.innerHTML =
-      `<td class="name">${name}<span class="sku">ID ${id}</span></td>` +
-      `<td>${rub(spend)}</td><td>${rev ? rub(rev) : "—"}</td><td>${orders}</td>` +
-      `<td>${chip}</td><td>${fmt(ctr,2)} %</td>`;
-    cb.appendChild(tr);
-  });
+  if (!CAMPS.length) {
+    cb.innerHTML = `<tr><td colspan="6" class="empty">За период кампании не откручивались</td></tr>`;
+  } else {
+    CAMPS.forEach(c => {
+      const chip = c.orders
+        ? `<span class="chip ${c.drr < 5 ? "good" : "warn"}">${fmt(c.drr,2)} %</span>`
+        : `<span class="chip bad">0 заказов</span>`;
+      const tr = document.createElement("tr");
+      tr.innerHTML =
+        `<td class="name">${esc(c.name || "без названия")}<span class="sku">ID ${esc(c.id)}</span></td>` +
+        `<td>${rub(c.spend)}</td><td>${c.revenue ? rub(c.revenue) : "—"}</td><td>${fmt(c.orders)}</td>` +
+        `<td>${chip}</td><td>${fmt(c.ctr,2)} %</td>`;
+      cb.appendChild(tr);
+    });
+  }
+})();
+
+/* =================== диагностика =================== */
+(function notes(){
+  const box = document.getElementById("notes");
+  if (!DATA.notes.length) {
+    box.innerHTML = `<div class="empty">Проблем с данными не нашлось — все колонки заполнены</div>`;
+    return;
+  }
+  box.innerHTML = DATA.notes.map(n =>
+    `<div class="note"><div class="sev ${esc(n.sev)}"></div><div>
+       <h3>${esc(n.title)}</h3><p>${n.html}</p>
+     </div></div>`
+  ).join("");
 })();
 </script>
 </body></html>
