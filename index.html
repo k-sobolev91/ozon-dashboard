@@ -119,6 +119,21 @@ svg{display:block; width:100%; height:auto; overflow:visible}
 .fst .fv{font-family:"JetBrains Mono",monospace; font-size:18px; font-weight:600; font-variant-numeric:tabular-nums}
 .fst .fr{font-size:11px; color:var(--ink-3)}
 
+/* остатки по размерам/складам */
+.stockgrid{display:grid; grid-template-columns:1.3fr 1fr; gap:28px; align-items:start}
+.sizecards{display:flex; flex-direction:column; gap:10px; margin-top:14px}
+.sizecard{border:1px solid var(--line); border-radius:8px; padding:10px 13px; background:var(--surface-2)}
+.sizecard .sc-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:8px}
+.sizecard .sc-name{font-size:13px; font-weight:500}
+.sizecard .sc-total{font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--ink-3); white-space:nowrap}
+.sizerow{display:flex; flex-wrap:wrap; gap:6px}
+.sizechip{display:inline-flex; align-items:baseline; gap:5px; padding:3px 9px; border-radius:6px;
+  font-family:"JetBrains Mono",monospace; font-size:12px; background:var(--surface); border:1px solid var(--line)}
+.sizechip .sz{color:var(--ink-2)}
+.sizechip .sn{font-weight:600}
+.sizechip.warn{border-color:var(--warn); color:var(--warn)}
+@media (max-width:900px){.stockgrid{grid-template-columns:1fr}}
+
 /* tables */
 .tablewrap{overflow-x:auto; margin-top:14px; border:1px solid var(--line); border-radius:8px}
 table{border-collapse:collapse; width:100%; min-width:560px; font-size:13px}
@@ -193,7 +208,7 @@ a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outlin
   </header>
 
   <div class="kpis">
-    <div class="kpi accent-sales"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></svg><span class="k" id="k-rev-label">Выручка</span></div><div class="v" id="k-rev"></div><div class="n" id="k-rev-note"></div></div>
+    <div class="kpi accent-sales"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></svg><span class="k" id="k-rev-label">Заказано</span></div><div class="v" id="k-rev"></div><div class="n" id="k-rev-note"></div></div>
     <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l8-4 8 4-8 4-8-4Z"/><path d="M4 8v8l8 4 8-4V8"/><path d="M12 12v8"/></svg><span class="k">Продано</span></div><div class="v" id="k-units"></div><div class="n" id="k-units-note"></div></div>
     <div class="kpi accent-ads"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span class="k">Расход на рекламу</span></div><div class="v" id="k-spend"></div><div class="n" id="k-spend-note"></div></div>
     <div class="kpi"><div class="kk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/></svg><span class="k">ДРР</span></div><div class="v" id="k-drr"></div><div class="n">доля рекламы в выручке</div></div>
@@ -204,24 +219,24 @@ a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outlin
   <!-- ============ БЛОК 1 — ПРОДАЖИ ============ -->
   <section class="panel">
     <div class="phead">
-      <h2>Выручка по дням</h2>
+      <h2>Заказано по дням</h2>
       <div class="meta" id="m-sales"></div>
     </div>
     <div class="pbody">
       <div class="legend">
-        <span><i class="swatch line" style="background:var(--sales)"></i> Выручка за день</span>
+        <span><i class="swatch line" style="background:var(--sales)"></i> Заказано за день</span>
         <span><i class="swatch dash"></i> <span id="l-avg"></span></span>
         <span id="wow"></span>
       </div>
       <div class="chartbox">
-        <svg id="salesChart" viewBox="0 0 1000 300" role="img" aria-label="Выручка по дням"></svg>
+        <svg id="salesChart" viewBox="0 0 1000 300" role="img" aria-label="Заказано по дням"></svg>
         <div class="tip" id="salesTip"></div>
       </div>
 
       <div class="section-rule" style="margin-top:22px"><span class="num">Топ товаров</span><span class="ln"></span></div>
       <div class="tablewrap">
         <table id="topTable">
-          <thead><tr><th>Товар</th><th>Продано</th><th>Выручка</th><th>Реклама</th><th>ДРР</th><th>Остаток</th></tr></thead>
+          <thead><tr><th>Товар</th><th>Продано</th><th>Заказано</th><th>Реклама</th><th>ДРР</th><th>Остаток</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -249,7 +264,51 @@ a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outlin
       <div class="section-rule" style="margin-top:22px"><span class="num" id="n-camps">Кампании</span><span class="ln"></span></div>
       <div class="tablewrap">
         <table id="campTable">
-          <thead><tr><th>Кампания</th><th>Расход</th><th>Выручка</th><th>Заказы</th><th>ДРР</th><th>CTR</th></tr></thead>
+          <thead><tr><th>Кампания</th><th>Расход</th><th>Заказано</th><th>Заказы</th><th>ДРР</th><th>CTR</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ БЛОК 3 — ОСТАТКИ ПО РАЗМЕРАМ И СКЛАДАМ ============ -->
+  <section class="panel">
+    <div class="phead">
+      <h2>Остатки: размеры и склады</h2>
+      <div class="meta" id="m-stock"></div>
+    </div>
+    <div class="pbody">
+      <div class="stockgrid">
+        <div>
+          <div class="section-rule" style="margin-top:0"><span class="num">По размерам</span><span class="ln"></span></div>
+          <div id="stockSizes" class="sizecards"></div>
+        </div>
+        <div>
+          <div class="section-rule" style="margin-top:0"><span class="num">По складам</span><span class="ln"></span></div>
+          <div class="tablewrap" style="margin-top:14px">
+            <table id="stockWhTable">
+              <thead><tr><th>Склад</th><th>Остаток</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ БЛОК 4 — ГЕОГРАФИЯ ЗАКАЗОВ ============ -->
+  <section class="panel">
+    <div class="phead">
+      <h2>География заказов</h2>
+      <div class="meta" id="m-geo"></div>
+    </div>
+    <div class="pbody">
+      <div class="legend">
+        <span style="color:var(--ink-3)" id="l-geo-note"></span>
+      </div>
+      <div class="tablewrap" style="margin-top:14px">
+        <table id="geoTable">
+          <thead><tr><th>Город</th><th>Заказано</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -273,7 +332,7 @@ a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--sales); outlin
 
 </div>
 
-<script type="application/json" id="dashboard-data">{"title": "Пульт Bernelli на Ozon", "generated_at": "16.09.2026, 11:19 МСК", "next_update": "каждый день в 07:00, 23:00 МСК", "period": {"days": 30, "label": "18.08 – 16.09"}, "kpi": {"revenue": 3727797.0, "units": 606, "units_per_day": 20.2, "spend": 43743.12, "drr": 1.17, "ctr": 6.91, "cpc": 4.02, "clicks": 10874, "impressions": 157261, "ads_since": "03.09"}, "avg_day": 124259.9, "sales": [["18.08", 7, 37045.0], ["19.08", 17, 103911.0], ["20.08", 9, 49889.0], ["21.08", 10, 76532.0], ["22.08", 4, 28498.0], ["23.08", 8, 61378.0], ["24.08", 5, 33400.0], ["25.08", 16, 50356.0], ["26.08", 33, 112042.0], ["27.08", 36, 164230.0], ["28.08", 14, 79034.0], ["29.08", 11, 65360.0], ["30.08", 15, 130320.0], ["31.08", 9, 45360.0], ["01.09", 10, 48880.0], ["02.09", 21, 169080.0], ["03.09", 12, 106640.0], ["04.09", 7, 52880.0], ["05.09", 12, 87080.0], ["06.09", 3, 30420.0], ["07.09", 12, 70660.0], ["08.09", 30, 184073.0], ["09.09", 24, 159855.0], ["10.09", 33, 195841.0], ["11.09", 40, 212150.0], ["12.09", 43, 277870.0], ["13.09", 60, 372340.0], ["14.09", 39, 299080.0], ["15.09", 51, 336682.0], ["16.09", 15, 86911.0]], "sales_label": "30 дн., 18.08 – 16.09", "ads": [{"d": "03.09", "spend": 969.73, "imp": 5209, "clicks": 288, "carts": 17, "orders": 3, "ok": true}, {"d": "04.09", "spend": 619.52, "imp": 3723, "clicks": 145, "carts": 5, "orders": 1, "ok": true}, {"d": "05.09", "spend": 772.1, "imp": 3849, "clicks": 217, "carts": 16, "orders": 1, "ok": true}, {"d": "06.09", "spend": 0.0, "imp": 0, "clicks": 0, "carts": 0, "orders": 0, "ok": true}, {"d": "07.09", "spend": 0.0, "imp": 0, "clicks": 0, "carts": 0, "orders": 3, "ok": true}, {"d": "08.09", "spend": 2118.48, "imp": 10497, "clicks": 612, "carts": 35, "orders": 0, "ok": true}, {"d": "09.09", "spend": 2422.41, "imp": 10897, "clicks": 578, "carts": 25, "orders": 2, "ok": true}, {"d": "10.09", "spend": 4021.19, "imp": 15756, "clicks": 1103, "carts": 68, "orders": 0, "ok": true}, {"d": "11.09", "spend": 4869.51, "imp": 15699, "clicks": 1190, "carts": 66, "orders": 2, "ok": true}, {"d": "12.09", "spend": 4988.26, "imp": 14863, "clicks": 1145, "carts": 96, "orders": 1, "ok": true}, {"d": "13.09", "spend": 3751.78, "imp": 15765, "clicks": 1271, "carts": 94, "orders": 1, "ok": true}, {"d": "14.09", "spend": 8826.35, "imp": 23198, "clicks": 1607, "carts": 64, "orders": 3, "ok": true}, {"d": "15.09", "spend": 7801.69, "imp": 25228, "clicks": 1864, "carts": 103, "orders": 2, "ok": true}, {"d": "16.09", "spend": 1605.47, "imp": 6511, "clicks": 446, "carts": 26, "orders": 0, "ok": true}], "ads_label": "03.09 – 16.09", "ads_note": "", "funnel": {"impressions": 151195, "clicks": 10466, "carts": 615, "orders": 19, "spend": 42766.49, "ctr": 6.922186580244055, "carts_pct": 5.876170456716989, "orders_pct": 3.089430894308943, "spend_per_order": 2250.867894736842, "range": "03.09 – 16.09"}, "top": [{"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385873, "units": 32, "revenue": 316652.0, "spend": 7344.69, "drr": 2.32, "stock": 5}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385311, "units": 30, "revenue": 299220.0, "spend": 12435.96, "drr": 4.16, "stock": 18}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385067, "units": 28, "revenue": 283280.0, "spend": 0.0, "drr": 0.0, "stock": 8}, {"name": "Брюки алладины атласные классические", "sku": 5317502997, "units": 52, "revenue": 242173.0, "spend": 8317.74, "drr": 3.43, "stock": 2}, {"name": "Брюки алладины атласные классические", "sku": 5317502573, "units": 34, "revenue": 148772.0, "spend": 0.0, "drr": 0.0, "stock": 14}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419386393, "units": 14, "revenue": 142960.0, "spend": 0.0, "drr": 0.0, "stock": 24}, {"name": "Брюки алладины атласные классические", "sku": 5317502601, "units": 30, "revenue": 135600.0, "spend": 0.0, "drr": 0.0, "stock": 7}, {"name": "Брюки алладины атласные классические", "sku": 5317502596, "units": 31, "revenue": 133296.0, "spend": 92.94, "drr": 0.07, "stock": 1}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385244, "units": 14, "revenue": 127160.0, "spend": 0.0, "drr": 0.0, "stock": 23}, {"name": "Брюки алладины атласные классические", "sku": 5317502619, "units": 30, "revenue": 126704.0, "spend": 602.31, "drr": 0.48, "stock": 20}], "camps": [{"name": "Костюм_серый 47SK3BGE/L (поиск и рек)", "id": "40457973", "spend": 11487.8, "revenue": 10340.0, "orders": 1, "drr": 111.1, "ctr": 4.86}, {"name": "брюки алладины_черн_атл 33BR3BLK42 (поиск и рек)", "id": "40459373", "spend": 7909.64, "revenue": 31300.0, "orders": 6, "drr": 25.27, "ctr": 10.77}, {"name": "костюм спорт черный_ 46SK3BLK/L", "id": "41468155", "spend": 7344.69, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 7.38}, {"name": "Брюки алладины_костюмка 48BR3BLK44 (поиск и рек)", "id": "40458190", "spend": 4779.47, "revenue": 5015.0, "orders": 1, "drr": 95.3, "ctr": 6.1}, {"name": "Блузка_боди коричневая _ 29BO4BLK42/44 (поиск и рек)", "id": "41066372", "spend": 4032.65, "revenue": 4000.0, "orders": 1, "drr": 100.82, "ctr": 9.52}, {"name": "Брюки_атласн_шоко 39BR3BRW46_ поиск", "id": "41771875", "spend": 3015.89, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 8.83}, {"name": "Брюки_алладины_костюмка_48BR3BLK44", "id": "41257511", "spend": 1835.0, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 7.21}, {"name": "47SK3BGE", "id": "36947317", "spend": 948.16, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 5.32}, {"name": "360/5605", "id": "36947660", "spend": 678.8, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 2.41}, {"name": "39BR3BRW", "id": "36947457", "spend": 602.31, "revenue": 13500.0, "orders": 4, "drr": 4.46, "ctr": 11.73}, {"name": "33BR3BLK", "id": "36947426", "spend": 408.1, "revenue": 10800.0, "orders": 3, "drr": 3.78, "ctr": 13.22}, {"name": "4646/35037", "id": "36947555", "spend": 286.05, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 2.77}], "notes": [{"sev": "info", "title": "Остатки выгружаются — большинство «нулей» реальные", "html": "Из 476 SKU у 389 остаток <code>0<\/code> — это непроданные размеры и цвета в размерном ряду, а не сбой выгрузки. Ходовые позиции из топа продаж — в наличии."}, {"sev": "warn", "title": "Себестоимость пустая — маржи нет", "html": "Колонка <code>Себестоимость<\/code> не заполнена у 476 из 476 товаров, поэтому пульт показывает выручку, а не прибыль. С себестоимостью появятся маржа, ROI рекламы и точка безубыточности по каждому SKU — заполняется вручную в листе «Товары»."}], "sources": [{"title": "Google-таблица — продажи и реклама", "url": "https://docs.google.com/spreadsheets/d/1TdWwQb7vAOH1EMAwIk3svRP1jP_z6rzWFAS6KmjlpyI/edit"}, {"title": "AleksaForOzon — реклама по товарам", "url": "https://docs.google.com/spreadsheets/d/1er_1t8Qb1JfYY9wtSG29FuEbQr8lv2pRxpIbkoNic3k/edit"}]}</script>
+<script type="application/json" id="dashboard-data">{"title": "Пульт Bernelli на Ozon", "generated_at": "16.09.2026, 11:59 МСК", "next_update": "каждый день в 07:00, 23:00 МСК", "period": {"days": 30, "label": "18.08 – 16.09"}, "kpi": {"revenue": 3727797.0, "units": 606, "units_per_day": 20.2, "spend": 43743.12, "drr": 1.17, "ctr": 6.91, "cpc": 4.02, "clicks": 10874, "impressions": 157261, "ads_since": "03.09"}, "avg_day": 124259.9, "sales": [["18.08", 7, 37045.0], ["19.08", 17, 103911.0], ["20.08", 9, 49889.0], ["21.08", 10, 76532.0], ["22.08", 4, 28498.0], ["23.08", 8, 61378.0], ["24.08", 5, 33400.0], ["25.08", 16, 50356.0], ["26.08", 33, 112042.0], ["27.08", 36, 164230.0], ["28.08", 14, 79034.0], ["29.08", 11, 65360.0], ["30.08", 15, 130320.0], ["31.08", 9, 45360.0], ["01.09", 10, 48880.0], ["02.09", 21, 169080.0], ["03.09", 12, 106640.0], ["04.09", 7, 52880.0], ["05.09", 12, 87080.0], ["06.09", 3, 30420.0], ["07.09", 12, 70660.0], ["08.09", 30, 184073.0], ["09.09", 24, 159855.0], ["10.09", 33, 195841.0], ["11.09", 40, 212150.0], ["12.09", 43, 277870.0], ["13.09", 60, 372340.0], ["14.09", 39, 299080.0], ["15.09", 51, 336682.0], ["16.09", 15, 86911.0]], "sales_label": "30 дн., 18.08 – 16.09", "ads": [{"d": "03.09", "spend": 969.73, "imp": 5209, "clicks": 288, "carts": 17, "orders": 3, "ok": true}, {"d": "04.09", "spend": 619.52, "imp": 3723, "clicks": 145, "carts": 5, "orders": 1, "ok": true}, {"d": "05.09", "spend": 772.1, "imp": 3849, "clicks": 217, "carts": 16, "orders": 1, "ok": true}, {"d": "06.09", "spend": 0.0, "imp": 0, "clicks": 0, "carts": 0, "orders": 0, "ok": true}, {"d": "07.09", "spend": 0.0, "imp": 0, "clicks": 0, "carts": 0, "orders": 3, "ok": true}, {"d": "08.09", "spend": 2118.48, "imp": 10497, "clicks": 612, "carts": 35, "orders": 0, "ok": true}, {"d": "09.09", "spend": 2422.41, "imp": 10897, "clicks": 578, "carts": 25, "orders": 2, "ok": true}, {"d": "10.09", "spend": 4021.19, "imp": 15756, "clicks": 1103, "carts": 68, "orders": 0, "ok": true}, {"d": "11.09", "spend": 4869.51, "imp": 15699, "clicks": 1190, "carts": 66, "orders": 2, "ok": true}, {"d": "12.09", "spend": 4988.26, "imp": 14863, "clicks": 1145, "carts": 96, "orders": 1, "ok": true}, {"d": "13.09", "spend": 3751.78, "imp": 15765, "clicks": 1271, "carts": 94, "orders": 1, "ok": true}, {"d": "14.09", "spend": 8826.35, "imp": 23198, "clicks": 1607, "carts": 64, "orders": 3, "ok": true}, {"d": "15.09", "spend": 7801.69, "imp": 25228, "clicks": 1864, "carts": 103, "orders": 2, "ok": true}, {"d": "16.09", "spend": 1605.47, "imp": 6511, "clicks": 446, "carts": 26, "orders": 0, "ok": true}], "ads_label": "03.09 – 16.09", "ads_note": "", "funnel": {"impressions": 151195, "clicks": 10466, "carts": 615, "orders": 19, "spend": 42766.49, "ctr": 6.922186580244055, "carts_pct": 5.876170456716989, "orders_pct": 3.089430894308943, "spend_per_order": 2250.867894736842, "range": "03.09 – 16.09"}, "top": [{"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385873, "units": 32, "revenue": 316652.0, "spend": 7344.69, "drr": 2.32, "stock": 5}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385311, "units": 30, "revenue": 299220.0, "spend": 12435.96, "drr": 4.16, "stock": 18}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385067, "units": 28, "revenue": 283280.0, "spend": 0.0, "drr": 0.0, "stock": 8}, {"name": "Брюки алладины атласные классические", "sku": 5317502997, "units": 52, "revenue": 242173.0, "spend": 8317.74, "drr": 3.43, "stock": 2}, {"name": "Брюки алладины атласные классические", "sku": 5317502573, "units": 34, "revenue": 148772.0, "spend": 0.0, "drr": 0.0, "stock": 14}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419386393, "units": 14, "revenue": 142960.0, "spend": 0.0, "drr": 0.0, "stock": 24}, {"name": "Брюки алладины атласные классические", "sku": 5317502601, "units": 30, "revenue": 135600.0, "spend": 0.0, "drr": 0.0, "stock": 7}, {"name": "Брюки алладины атласные классические", "sku": 5317502596, "units": 31, "revenue": 133296.0, "spend": 92.94, "drr": 0.07, "stock": 1}, {"name": "Костюм спортивный оверсайз без начеса", "sku": 5419385244, "units": 14, "revenue": 127160.0, "spend": 0.0, "drr": 0.0, "stock": 23}, {"name": "Брюки алладины атласные классические", "sku": 5317502619, "units": 30, "revenue": 126704.0, "spend": 602.31, "drr": 0.48, "stock": 20}], "camps": [{"name": "Костюм_серый 47SK3BGE/L (поиск и рек)", "id": "40457973", "spend": 11487.8, "revenue": 10340.0, "orders": 1, "drr": 111.1, "ctr": 4.86}, {"name": "брюки алладины_черн_атл 33BR3BLK42 (поиск и рек)", "id": "40459373", "spend": 7909.64, "revenue": 31300.0, "orders": 6, "drr": 25.27, "ctr": 10.77}, {"name": "костюм спорт черный_ 46SK3BLK/L", "id": "41468155", "spend": 7344.69, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 7.38}, {"name": "Брюки алладины_костюмка 48BR3BLK44 (поиск и рек)", "id": "40458190", "spend": 4779.47, "revenue": 5015.0, "orders": 1, "drr": 95.3, "ctr": 6.1}, {"name": "Блузка_боди коричневая _ 29BO4BLK42/44 (поиск и рек)", "id": "41066372", "spend": 4032.65, "revenue": 4000.0, "orders": 1, "drr": 100.82, "ctr": 9.52}, {"name": "Брюки_атласн_шоко 39BR3BRW46_ поиск", "id": "41771875", "spend": 3015.89, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 8.83}, {"name": "Брюки_алладины_костюмка_48BR3BLK44", "id": "41257511", "spend": 1835.0, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 7.21}, {"name": "47SK3BGE", "id": "36947317", "spend": 948.16, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 5.32}, {"name": "360/5605", "id": "36947660", "spend": 678.8, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 2.41}, {"name": "39BR3BRW", "id": "36947457", "spend": 602.31, "revenue": 13500.0, "orders": 4, "drr": 4.46, "ctr": 11.73}, {"name": "33BR3BLK", "id": "36947426", "spend": 408.1, "revenue": 10800.0, "orders": 3, "drr": 3.78, "ctr": 13.22}, {"name": "4646/35037", "id": "36947555", "spend": 286.05, "revenue": 0.0, "orders": 0, "drr": 0.0, "ctr": 2.77}], "stock_by_size": [{"name": "Брюки алладины KAMA fashion, 1 шт", "total": 280, "sizes": [{"size": "42", "stock": 47}, {"size": "44", "stock": 49}, {"size": "46", "stock": 51}, {"size": "48", "stock": 30}, {"size": "50", "stock": 43}, {"size": "52", "stock": 60}]}, {"name": "Костюм спортивный KAMA fashion", "total": 107, "sizes": [{"size": "L", "stock": 23}, {"size": "M", "stock": 32}, {"size": "S", "stock": 52}]}, {"name": "Тапочки Bernelli", "total": 69, "sizes": [{"size": "35", "stock": 5}, {"size": "36", "stock": 10}, {"size": "37", "stock": 9}, {"size": "38", "stock": 2}, {"size": "39", "stock": 1}, {"size": "40", "stock": 9}, {"size": "41", "stock": 12}, {"size": "42", "stock": 3}, {"size": "43", "stock": 3}, {"size": "44", "stock": 2}, {"size": "45", "stock": 4}, {"size": "46", "stock": 9}]}, {"name": "Блузка KAMA fashion", "total": 50, "sizes": [{"size": "42/44", "stock": 9}, {"size": "46/48", "stock": 15}, {"size": "50/52", "stock": 19}, {"size": "54/56", "stock": 7}]}], "stock_by_warehouse": [{"warehouse": "ПУШКИНО_2_РФЦ", "stock": 184}, {"warehouse": "СПБ_ПОРОШКИНО_РФЦ", "stock": 86}, {"warehouse": "КАЗАНЬ_РФЦ_НОВЫЙ", "stock": 60}, {"warehouse": "НОГИНСК_РФЦ", "stock": 49}, {"warehouse": "РОСТОВ_НА_ДОНУ_2_РФЦ", "stock": 41}, {"warehouse": "ЕКАТЕРИНБУРГ_РФЦ_НОВЫЙ", "stock": 16}, {"warehouse": "НЕВИННОМЫССК_РФЦ", "stock": 8}, {"warehouse": "АДЫГЕЙСК_РФЦ", "stock": 7}, {"warehouse": "ДОМОДЕДОВО_РФЦ", "stock": 5}, {"warehouse": "САНКТ-ПЕТЕРБУРГ_РФЦ", "stock": 4}, {"warehouse": "ЯРОСЛАВЛЬ_РФЦ", "stock": 4}, {"warehouse": "ЖУКОВСКИЙ_РФЦ", "stock": 4}], "stock_snapshot_date": "16.09.2026", "geography": {"cities": [{"city": "Москва", "orders": 30, "cancelled": 29}, {"city": "Санкт-Петербург", "orders": 19, "cancelled": 12}, {"city": "Краснодар", "orders": 11, "cancelled": 6}, {"city": "Ростов-на-Дону", "orders": 7, "cancelled": 1}, {"city": "Екатеринбург", "orders": 7, "cancelled": 7}, {"city": "Калининград", "orders": 6, "cancelled": 3}, {"city": "Сочи", "orders": 6, "cancelled": 2}, {"city": "Липецк", "orders": 5, "cancelled": 1}, {"city": "Казань", "orders": 5, "cancelled": 2}, {"city": "Иваново", "orders": 5, "cancelled": 1}, {"city": "Мытищи", "orders": 5, "cancelled": 1}, {"city": "Астрахань", "orders": 5, "cancelled": 0}], "total_cities": 182, "period_days": 30, "cancelled_pct": 38.97338403041825}, "notes": [{"sev": "info", "title": "Остатки выгружаются — большинство «нулей» реальные", "html": "Из 476 SKU у 389 остаток <code>0<\/code> — это непроданные размеры и цвета в размерном ряду, а не сбой выгрузки. Ходовые позиции из топа продаж — в наличии."}, {"sev": "warn", "title": "Себестоимость пустая — маржи нет", "html": "Колонка <code>Себестоимость<\/code> не заполнена у 476 из 476 товаров, поэтому пульт показывает выручку, а не прибыль. С себестоимостью появятся маржа, ROI рекламы и точка безубыточности по каждому SKU — заполняется вручную в листе «Товары»."}], "sources": [{"title": "Google-таблица — продажи и реклама", "url": "https://docs.google.com/spreadsheets/d/1TdWwQb7vAOH1EMAwIk3svRP1jP_z6rzWFAS6KmjlpyI/edit"}, {"title": "AleksaForOzon — реклама по товарам", "url": "https://docs.google.com/spreadsheets/d/1er_1t8Qb1JfYY9wtSG29FuEbQr8lv2pRxpIbkoNic3k/edit"}]}</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById("dashboard-data").textContent);
@@ -287,6 +346,8 @@ const SALES = DATA.sales;      // [[дд.мм, шт, выручка], ...]
 const ADS = DATA.ads;          // [{d, spend, imp, clicks, carts, orders, ok}, ...]
 const TOP = DATA.top;          // [{name, sku, units, revenue, spend, drr, stock}, ...]
 const CAMPS = DATA.camps;      // [{name, id, spend, revenue, orders, drr, ctr}, ...]
+const STOCK_SIZES = DATA.stock_by_size;         // [{name, total, sizes:[{size, stock}]}, ...]
+const STOCK_WAREHOUSES = DATA.stock_by_warehouse; // [{warehouse, stock}, ...]
 
 /* Шкала: «красивый» максимум с запасом 10% над данными — ось не должна
    зависеть от конкретного периода, иначе при смене данных график
@@ -312,7 +373,7 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
   document.getElementById("s-next").innerHTML = DATA.next_update
     ? `Пересчитывается автоматически: <b>${esc(DATA.next_update)}</b>` : "";
 
-  document.getElementById("k-rev-label").textContent = `Выручка, ${DATA.period.days} дн.`;
+  document.getElementById("k-rev-label").textContent = `Заказано, ${DATA.period.days} дн.`;
   document.getElementById("k-rev").textContent = rub(k.revenue);
   document.getElementById("k-rev-note").textContent = DATA.period.label;
   document.getElementById("k-units").textContent = fmt(k.units) + NBSP + "шт";
@@ -325,6 +386,16 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
 
   document.getElementById("m-sales").textContent = DATA.sales_label;
   document.getElementById("m-ads").textContent = DATA.ads_label;
+  document.getElementById("m-stock").textContent = DATA.stock_snapshot_date
+    ? `снимок склада на ${DATA.stock_snapshot_date}` : "снимок склада недоступен";
+
+  const geo = DATA.geography;
+  document.getElementById("m-geo").textContent = geo.period_days
+    ? `за ${geo.period_days} дн., ${geo.total_cities} городов` : "";
+  document.getElementById("l-geo-note").textContent =
+    `Считаем FBO-отправления (Ozon Fulfillment) без отменённых` +
+    (geo.cancelled_pct ? ` — отменено ${fmt(geo.cancelled_pct,1)} % от всех отправлений за период` : "") +
+    `. У FBS-доставки Ozon не отдаёт город на этом аккаунте.`;
   document.getElementById("l-ads-note").textContent = DATA.ads_note || "";
   document.getElementById("n-camps").textContent = `Кампании за ${DATA.period.days} дней`;
   document.getElementById("l-avg").textContent = "Среднее за период " + rub(DATA.avg_day);
@@ -413,7 +484,7 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
     cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("opacity", ".7");
     knob.setAttribute("cx", x(i)); knob.setAttribute("cy", y(s[2])); knob.setAttribute("opacity", "1");
     tip.innerHTML = `<div class="td">${esc(s[0])}</div>
-      <div class="tr"><span>Выручка</span><b>${rub(s[2])}</b></div>
+      <div class="tr"><span>Заказано</span><b>${rub(s[2])}</b></div>
       <div class="tr"><span>Продано</span><b>${fmt(s[1])}${NBSP}шт</b></div>
       <div class="tr"><span>Средний чек</span><b>${s[1] ? rub(s[2]/s[1]) : "—"}</b></div>`;
     tip.style.opacity = "1";
@@ -558,6 +629,56 @@ const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k i
       cb.appendChild(tr);
     });
   }
+})();
+
+/* =================== остатки: размеры и склады =================== */
+(function stock(){
+  const sizesBox = document.getElementById("stockSizes");
+  if (!STOCK_SIZES.length) {
+    sizesBox.innerHTML = `<div class="empty">Нет данных по остаткам с распознанным размером</div>`;
+  } else {
+    sizesBox.innerHTML = STOCK_SIZES.map(p => `
+      <div class="sizecard">
+        <div class="sc-head">
+          <span class="sc-name">${esc(p.name)}</span>
+          <span class="sc-total">${fmt(p.total)}${NBSP}шт всего</span>
+        </div>
+        <div class="sizerow">${p.sizes.map(s =>
+          `<span class="sizechip${s.stock < 5 ? " warn" : ""}"><span class="sz">${esc(s.size)}</span><span class="sn">${fmt(s.stock)}</span></span>`
+        ).join("")}</div>
+      </div>
+    `).join("");
+  }
+
+  const wb = document.querySelector("#stockWhTable tbody");
+  if (!STOCK_WAREHOUSES.length) {
+    wb.innerHTML = `<tr><td colspan="2" class="empty">Нет данных по складам</td></tr>`;
+  } else {
+    const maxStock = Math.max(...STOCK_WAREHOUSES.map(w => w.stock));
+    wb.innerHTML = STOCK_WAREHOUSES.map(w => `
+      <tr>
+        <td class="name">${esc(w.warehouse)}</td>
+        <td class="bar-cell"><div class="fill" style="width:${(w.stock/maxStock*100).toFixed(1)}%"></div><span>${fmt(w.stock)}${NBSP}шт</span></td>
+      </tr>
+    `).join("");
+  }
+})();
+
+/* =================== география заказов =================== */
+(function geography(){
+  const cities = DATA.geography.cities;
+  const tb = document.querySelector("#geoTable tbody");
+  if (!cities.length) {
+    tb.innerHTML = `<tr><td colspan="2" class="empty">Нет FBO-заказов с определённым городом за период</td></tr>`;
+    return;
+  }
+  const maxOrders = Math.max(...cities.map(c => c.orders));
+  tb.innerHTML = cities.map(c => `
+    <tr>
+      <td class="name">${esc(c.city)}</td>
+      <td class="bar-cell"><div class="fill" style="width:${(c.orders/maxOrders*100).toFixed(1)}%"></div><span>${fmt(c.orders)}</span></td>
+    </tr>
+  `).join("");
 })();
 
 /* =================== диагностика =================== */
